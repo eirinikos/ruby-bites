@@ -2,18 +2,47 @@
 # http://www.codewars.com/kata/5523b97ac8f5025c45000900/train/ruby
 
 class Plugboard
-  def initialize(wires)
-    if wires.size.even? && (wires.size/2) < 11 && wires.split(%r{\s*})==wires.split(%r{\s*}).uniq
-      # what about a string of odd-numbered size that includes a valid number of A-Z pairs, plus some non-A-Z characters?
-      @wires = wires
+  def initialize(wires="")
+    array = wires.split(%r{\s*})
+    if array.none?{|i| !("A".."Z").include?(i)} && array.size.even? && (array.size/2)<11 && array==array.uniq
+      # if array includes only char within "A".."Z" range
+      # && if array is even and has 10 or less pairs of A..Z characters, all unique
+      @wires = array
     else
-      "Invalid input!"
+      raise
     end
   end
   def process(wire)
-    # find wire in @wires
-    # if wire is not within @wires, return wire unchanged
-    # if wire is not within A-Z, return wire unchanged
+    # @wires pairs char in even-odd index pairs: @wires[0] & @wires[1], and so on..
+    if wire.size > 1
+      "Please enter a single character."
+    elsif !@wires.include?(wire)
+      wire
+    elsif @wires.index(wire).even?
+      @wires[@wires.index(wire) + 1]
+    else @wires.index(wire).odd?
+      @wires[@wires.index(wire) - 1]
+    end
+  end
+end
+
+#refactored...
+class Plugboard
+  def initialize(wires="")
+    @wires = wires
+    raise if @wires.size.odd? || (@wires.size/2)>10 || @wires != @wires.chars.uniq.join
+  end
+  def process(wire)
+    i = @wires.chars.index(wire)
+    if wire.size > 1
+      "Please enter a single character."
+    elsif i.nil?
+      wire
+    elsif i.even?
+      @wires[i+1]
+    else i.odd?
+      @wires[i-1]
+    end
   end
 end
 
@@ -40,6 +69,7 @@ def count_arara(n)
   arara_array.join(" ")
 end
 
+#refactored...
 def count_arara(n)
   (["adak"] * (n/2) + ["anane"] * (n%2)).join(" ")
 end
@@ -48,6 +78,7 @@ Test.assert_equals(count_arara(1),"anane");
 Test.assert_equals(count_arara(2),"adak");
 Test.assert_equals(count_arara(3),"adak anane");
 Test.assert_equals(count_arara(9),"adak adak adak adak anane");
+
 
 # codewars kata: is a number prime?
 # http://www.codewars.com/kata/is-a-number-prime
