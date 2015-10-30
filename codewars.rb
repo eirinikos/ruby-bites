@@ -1,6 +1,5 @@
 # codewars kata: enigma machine (plugboard)
 # http://www.codewars.com/kata/5523b97ac8f5025c45000900/train/ruby
-
 class Plugboard
   def initialize(wires="")
     array = wires.split(%r{\s*})
@@ -49,7 +48,6 @@ end
 
 # codewars kata: pentabonacci
 # http://www.codewars.com/kata/55c9172ee4bb15af9000005d/train/ruby
-
 def count_odd_pentaFib(n)
   array = [0,1,1,2,4,8]
   (5..n).each do |i|
@@ -61,7 +59,6 @@ end
 
 # codewars kata: counting in the amazon
 # http://www.codewars.com/kata/55b95c76e08bd5eef100001e/train/ruby
-
 def count_arara(n)
   arara_array = []
   (n/2).times{ |i| arara_array << "adak" }
@@ -82,7 +79,6 @@ Test.assert_equals(count_arara(9),"adak adak adak adak anane");
 
 # codewars kata: is a number prime?
 # http://www.codewars.com/kata/is-a-number-prime
-
 def isPrime(num)
 # returns whether num is a prime number
   num > 1 && (2...num).none?{|n| num % n == 0}
@@ -110,3 +106,23 @@ end
     # array_of_arrays = [[2,2,2,2,2,2], [2,2,2,2,2,1,1], [2,2,2,2,1,1,1,1],
     # [2,2,2,1,1,1,1,1,1], [2,2,1,1,1,1,1,1,1,1], [2,1,1,1,1,1,1,1,1,1,1], [1,1,1,1,1,1,1,1,1,1,1,1]]
     # array_of_array_lengths = [6, 7, 8, 9, 10, 11, 12]
+
+
+# codewars kata: sum of top-left to bottom-right diagonals
+# http://www.codewars.com/kata/5497a3c181dd7291ce000700/train/ruby
+def diagonalSum(matrix)
+  (0...matrix.size).map { |i| matrix[i][i] }.reduce(&:+)
+end
+
+
+# codewars kata: musical pitch classes
+# http://www.codewars.com/kata/musical-pitch-classes/solutions/ruby/me/best_practice
+def pitch_class(note)
+  array_with_sharps = [
+  'B#', 'C#', 'D', 'D#', 'E', 'E#', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+  array_with_flats = [
+  'C','Db', 'D', 'Eb', 'Fb', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'Cb']
+  
+    array_with_sharps.index(note) ||
+    array_with_flats.index(note)
+end
