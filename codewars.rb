@@ -1,3 +1,31 @@
+#codewars kata: word a9n (abbreviation)
+# http://www.codewars.com/kata/word-a9n-abbreviation/train/ruby
+
+class Abbreviator
+  def self.abbreviate(string)
+    # find sub-string within string that has at least 4 char
+    # a non-alphabetic char splits letters into 2 words
+  end
+end
+
+Abbreviator.abbreviate("banana") # => "b4a"
+Abbreviator.abbreviate("double-barrel") #=>"d4e-b4l"
+Abbreviator.abbreviate("You, and I, should speak.") #=>"You, and I, s4d s3k."
+
+
+# codewars kata: format a string of names
+# http://www.codewars.com/kata/format-a-string-of-names-like-bart-lisa-and-maggie/train/ruby
+
+def list(names)
+  array = names.map{|n| n.values}
+  if array.size > 2
+    array[0..-2].join(", ") + " & #{array[-1][0]}"
+  else
+    array.join(" & ")
+  end
+end
+
+
 # codewars kata: enigma machine (plugboard)
 # http://www.codewars.com/kata/5523b97ac8f5025c45000900/train/ruby
 class Plugboard
