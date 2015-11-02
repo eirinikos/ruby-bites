@@ -25,6 +25,12 @@ def list(names)
   end
 end
 
+# refactored...
+def list(names)
+  array = names.map{|n| n.values}
+  return array.join(" & ") if array.size < 2a
+  array[0..-2].join(", ") + " & #{array[-1][0]}"
+end
 
 # codewars kata: enigma machine (plugboard)
 # http://www.codewars.com/kata/5523b97ac8f5025c45000900/train/ruby
