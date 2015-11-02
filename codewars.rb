@@ -28,7 +28,7 @@ end
 # refactored...
 def list(names)
   array = names.map{|n| n.values}
-  return array.join(" & ") if array.size < 2a
+  return array.join(" & ") if array.size < 2
   array[0..-2].join(", ") + " & #{array[-1][0]}"
 end
 
