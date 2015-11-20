@@ -3,14 +3,15 @@
 
 class Abbreviator
   def self.abbreviate(string)
-    # find sub-string within string that has at least 4 char
-    # a non-alphabetic char splits letters into 2 words
+    string.split(%r{\b}).map{ |item|
+     if %r([a-zA-Z]{4,}).match(item)
+       item.replace("#{item[0]}#{item.size-2}#{item[-1]}")
+     else
+       item
+     end
+     }.join
   end
 end
-
-Abbreviator.abbreviate("banana") # => "b4a"
-Abbreviator.abbreviate("double-barrel") #=>"d4e-b4l"
-Abbreviator.abbreviate("You, and I, should speak.") #=>"You, and I, s4d s3k."
 
 
 # codewars kata: format a string of names
@@ -31,6 +32,7 @@ def list(names)
   return array.join(" & ") if array.size < 2
   array[0..-2].join(", ") + " & #{array[-1][0]}"
 end
+
 
 # codewars kata: enigma machine (plugboard)
 # http://www.codewars.com/kata/5523b97ac8f5025c45000900/train/ruby
