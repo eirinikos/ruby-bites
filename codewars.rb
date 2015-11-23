@@ -1,4 +1,22 @@
-#codewars kata: word a9n (abbreviation)
+# codewars kata: josephus permutation
+# http://www.codewars.com/kata/5550d638a99ddb113e0000a2/train/ruby
+# for best solutions, see http://www.codewars.com/kata/5550d638a99ddb113e0000a2/solutions/ruby
+
+def josephus(items,k)
+  new_array = []
+  while items.size > (k-1)
+    new_array << items.delete_at(k-1)
+    items.rotate!(k-1) 
+  end
+  while items.size > 0
+    items.rotate!(k-1) 
+    new_array << items.delete_at(0)
+  end
+  new_array
+end
+
+
+# codewars kata: word a9n (abbreviation)
 # http://www.codewars.com/kata/word-a9n-abbreviation/train/ruby
 
 class Abbreviator
