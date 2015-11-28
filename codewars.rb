@@ -1,7 +1,6 @@
 # codewars kata: josephus permutation
 # http://www.codewars.com/kata/5550d638a99ddb113e0000a2/train/ruby
 # for best solutions, see http://www.codewars.com/kata/5550d638a99ddb113e0000a2/solutions/ruby
-
 def josephus(items,k)
   new_array = []
   while items.size > (k-1)
@@ -18,7 +17,6 @@ end
 
 # codewars kata: word a9n (abbreviation)
 # http://www.codewars.com/kata/word-a9n-abbreviation/train/ruby
-
 class Abbreviator
   def self.abbreviate(string)
     string.split(%r{\b}).map{ |item|
@@ -34,7 +32,6 @@ end
 
 # codewars kata: format a string of names
 # http://www.codewars.com/kata/format-a-string-of-names-like-bart-lisa-and-maggie/train/ruby
-
 def list(names)
   array = names.map{|n| n.values}
   if array.size > 2
@@ -125,11 +122,6 @@ def count_arara(n)
   (["adak"] * (n/2) + ["anane"] * (n%2)).join(" ")
 end
 
-Test.assert_equals(count_arara(1),"anane");
-Test.assert_equals(count_arara(2),"adak");
-Test.assert_equals(count_arara(3),"adak anane");
-Test.assert_equals(count_arara(9),"adak adak adak adak anane");
-
 
 # codewars kata: is a number prime?
 # http://www.codewars.com/kata/is-a-number-prime
@@ -144,22 +136,6 @@ end
 def numberOfSteps(steps, m)
   ((steps/2 + steps%2)..steps).find{ |n| n%m==0 } || -1
 end
-
-  # steps = array.reduce(&:+)
-      
-  Test.assert_equals(numberOfSteps(7, 5), 5)
-    # array_of_arrays = [[2,2,2,1], [2,2,1,1,1], [2,1,1,1,1,1], [1,1,1,1,1,1,1]]
-    # array_of_array_lengths = [4, 5, 6, 7]
-
-  Test.assert_equals(numberOfSteps(10, 2), 6)
-    # array_of_arrays = [[2,2,2,2,2], [2,2,2,2,1,1],[2,2,2,1,1,1,1], [2,2,1,1,1,1,1,1], 
-    # [2,1,1,1,1,1,1,1,1], [1,1,1,1,1,1,1,1,1,1]]
-    # array_of_array_lengths = [5, 6, 7, 8, 9, 10]
-
-  Test.assert_equals(numberOfSteps(12, 3), 6)
-    # array_of_arrays = [[2,2,2,2,2,2], [2,2,2,2,2,1,1], [2,2,2,2,1,1,1,1],
-    # [2,2,2,1,1,1,1,1,1], [2,2,1,1,1,1,1,1,1,1], [2,1,1,1,1,1,1,1,1,1,1], [1,1,1,1,1,1,1,1,1,1,1,1]]
-    # array_of_array_lengths = [6, 7, 8, 9, 10, 11, 12]
 
 
 # codewars kata: sum of top-left to bottom-right diagonals
