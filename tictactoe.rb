@@ -1,46 +1,85 @@
 class TTT
   attr_accessor :board
 
-  # initialize the TTT board with nil values
   def initialize
-    @board = Array.new(3) {Array.new(3)}
+    @board = [[1, 2, 3],[4, 5, 6],[7, 8, 9]]
+    @row_1 = @board[0]
+    @row_2 = @board[1]
+    @row_3 = @board[2]
   end
 
-  # print board in a human-readable format
-  # instruct player 1 to make first move
   def print_board
-    if @board.none? {|row| row.any? {|i| i }}
-      puts "\n 1 | 2 | 3  \n-----------\n 4 | 5 | 6  \n-----------\n 7 | 8 | 9  \n\n"
-      play_first_move 
-    else
-      puts "\n"
-      @board.each do |row| 
-        puts " #{row[0]} | #{row[1]} | #{row[2]} ",
-        "-----------"
+    puts "\n #{@row_1[0]} | #{@row_1[1]} | #{@row_1[2]} ",
+        "----------",
+        " #{@row_2[0]} | #{@row_2[1]} | #{@row_2[2]} ",
+        "----------",
+        " #{@row_3[0]} | #{@row_3[1]} | #{@row_3[2]} "
+  end
+
+  def update_board(player, place)
+    error_msg = "\nSTOP in the name of the law! That box is occupied - please choose another one. "
+    case @place
+    when 1, 2, 3
+      if @row_1[place - 1].class == Fixnum
+        @row_1[place - 1] = player
+      else
+        print_board
+        print error_msg
+        player_move(player)
       end
-      "#{}, the next move is yours! Select a move: \n"
+    when 4, 5, 6
+      if @row_2[place - 4].class == Fixnum
+        @row_2[place - 4] = player
+      else
+        print_board
+        print error_msg
+        player_move(player)
+      end
+    else
+      if @row_3[place - 7].class == Fixnum
+        @row_3[place - 7] = player
+      else
+        print_board
+        print error_msg
+        player_move(player)
+      end
+    end
+    player == @p1 ? @turn = @p2 : @turn = @p1
+    turns
+  end
+
+  def turns
+    print_board
+    if @p1.nil?  
+      print "\nPlayer 1, make your move!\nDo you want to play an X or an O? "
+      @p1 = gets.chomp
+      print "Excellent choice. In which box would you like to place your #{@p1}? "
+      player_move(@p1)
+    elsif @p2.nil?
+      @p1 == "O" ? @p2 = "X" : @p2 = "O"
+      print "\nPlayer 2, make your move! In which box would you like to place your #{@p2}? "
+      player_move(@p2)
+    elsif @turn == @p1
+      print "\nPlayer 1, back to you! In which box would you like to place your #{@p1}? "
+      player_move(@p1)
+    else
+      print "\nPlayer 2, back to you! In which box would you like to place your #{@p2}? "
+      player_move(@p2)
     end
   end
 
-  def play_first_move
-    puts "Player 1, make your move!\nDo you want to play an X or an O?"
-    player_1 = gets.chomp
-    puts "Excellent choice. In which box would you like to place your #{player_1}?\n"
-    player_1_place = gets.chomp
-    # handle selection
-  end
-
-  def play_next_move
+  def player_move(player) 
+    @place = gets.chomp.to_i
+    update_board(player, @place)
   end
 end
 
-# player 1 makes a move, get user input and update board
-# player 2 makes a move, get user input and update board
-# repeat until someone marks 3 Os or 3 Xs in a row (horizontal, vertical, or diagonal)
+# step 1: create a new gameboard instance (b = TTT.new)
+# step 2: prompt the next player to take a turn (b.turns)
 
+# repeat until someone marks 3 Os or 3 Xs in a row (horizontal, vertical, or diagonal)
 # horizontal victory for a given row = row[0] == row[1] == row[2]
 # board.map{ |row| row.uniq.size == 1 }.any?
-
 # vertical victory = (0..2).board
 # diagonal victory = (0..2).
 
