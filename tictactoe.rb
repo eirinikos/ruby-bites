@@ -78,10 +78,11 @@ end
 # step 2: prompt the next player to take a turn (b.turns)
 
 # repeat until someone marks 3 Os or 3 Xs in a row (horizontal, vertical, or diagonal)
-# horizontal victory for a given row = row[0] == row[1] == row[2]
-# board.map{ |row| row.uniq.size == 1 }.any?
-# vertical victory = (0..2).board
-# diagonal victory = (0..2).
+# identify the winning player
+
+# horizontal victory: @board.map{ |row| row.uniq.size == 1 }.any?
+# vertical victory: @board.transpose.map{ |row| row.uniq.size == 1 }.any?
+# diagonal victory: (0..2).
 
 # display congratulatory message to the winning player
 # OR, display proclamation of a draw
