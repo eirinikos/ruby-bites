@@ -37,18 +37,7 @@ class TTT
         occupied_box_prompt(player)
       end
     end
-    
-    if victory?
-      print_board
-      puts "\nCONGRATULATIONS! You have vanquished your foe!\n\n(╯°□°)╯︵ ┻━┻\n\n"
-      restart?
-    elsif (@board.all? {|row| row.all? {|i| i.class == String} } && !victory?)
-      puts "Messieurs, mesdames - you have come to a draw."
-      restart?
-    else
-      player == @p1 ? @turn = @p2 : @turn = @p1
-      turns
-    end
+    game_over?(player)
   end
 
   def turns
@@ -96,6 +85,20 @@ class TTT
     print_board
     print "\nSTOP in the name of the law! That box is occupied - please choose another one. "
     player_move(player)
+  end
+
+  def game_over?(player)
+    if victory?
+      print_board
+      puts "\nCONGRATULATIONS! You have vanquished your foe!\n\n(╯°□°)╯︵ ┻━┻\n\n"
+      restart?
+    elsif (@board.all? {|row| row.all? {|i| i.class == String} } && !victory?)
+      puts "Messieurs, mesdames - you have come to a draw."
+      restart?
+    else
+      player == @p1 ? @turn = @p2 : @turn = @p1
+      turns
+    end
   end
 
   def victory?
