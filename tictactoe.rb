@@ -22,22 +22,19 @@ class TTT
       if @row_1[place - 1].class == Fixnum
         @row_1[place - 1] = player
       else
-        occupied_box
-        player_move(player)
+        occupied_box_prompt(player)
       end
     when 4, 5, 6
       if @row_2[place - 4].class == Fixnum
         @row_2[place - 4] = player
       else
-        occupied_box
-        player_move(player)
+        occupied_box_prompt(player)
       end
     else
       if @row_3[place - 7].class == Fixnum
         @row_3[place - 7] = player
       else
-        occupied_box
-        player_move(player)
+        occupied_box_prompt(player)
       end
     end
     
@@ -95,9 +92,10 @@ class TTT
     end
   end
 
-  def occupied_box
+  def occupied_box_prompt(player)
     print_board
     print "\nSTOP in the name of the law! That box is occupied - please choose another one. "
+    player_move(player)
   end
 
   def victory?
