@@ -119,5 +119,4 @@ class TTT
   end
 end
 
-b = TTT.new
-b.turns
+TTT.new.turns
