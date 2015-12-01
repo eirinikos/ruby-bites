@@ -17,35 +17,41 @@ class TTT
   end
 
   def update_board(player, place)
-    error_msg = "\nSTOP in the name of the law! That box is occupied - please choose another one. "
     case @place
     when 1, 2, 3
       if @row_1[place - 1].class == Fixnum
         @row_1[place - 1] = player
       else
-        print_board
-        print error_msg
+        occupied_box
         player_move(player)
       end
     when 4, 5, 6
       if @row_2[place - 4].class == Fixnum
         @row_2[place - 4] = player
       else
-        print_board
-        print error_msg
+        occupied_box
         player_move(player)
       end
     else
       if @row_3[place - 7].class == Fixnum
         @row_3[place - 7] = player
       else
-        print_board
-        print error_msg
+        occupied_box
         player_move(player)
       end
     end
-    player == @p1 ? @turn = @p2 : @turn = @p1
-    turns
+    
+    if victory?
+      print_board
+      puts "\nCONGRATULATIONS! You have vanquished your foe!\n\n(╯°□°)╯︵ ┻━┻\n\n"
+      restart?
+    elsif (@board.all? {|row| row.all? {|i| i.class == String} } && !victory?)
+      puts "Messieurs, mesdames - you have come to a draw."
+      restart?
+    else
+      player == @p1 ? @turn = @p2 : @turn = @p1
+      turns
+    end
   end
 
   def turns
@@ -53,8 +59,7 @@ class TTT
     if @p1.nil?  
       print "\nPlayer 1, make your move!\nDo you want to play an X or an O? "
       @p1 = gets.chomp
-      print "Excellent choice. In which box would you like to place your #{@p1}? "
-      player_move(@p1)
+      x_or_o_chosen?
     elsif @p2.nil?
       @p1 == "O" ? @p2 = "X" : @p2 = "O"
       print "\nPlayer 2, make your move! In which box would you like to place your #{@p2}? "
@@ -68,21 +73,50 @@ class TTT
     end
   end
 
+  def x_or_o_chosen?
+    if ["X","O","x","o"].include?(@p1)
+      @p1.upcase!
+      print "Excellent choice. In which box would you like to place your #{@p1}? "
+      player_move(@p1)
+    else
+      print "Sir / Madam, please choose X or O: "
+      @p1 = gets.chomp
+      x_or_o_chosen?
+    end
+  end
+
   def player_move(player) 
     @place = gets.chomp.to_i
-    update_board(player, @place)
+    if (1..9).include?(@place)
+      update_board(player, @place)
+    else
+      print "Sir / Madam, please choose a valid number: "
+      player_move(player)
+    end
+  end
+
+  def occupied_box
+    print_board
+    print "\nSTOP in the name of the law! That box is occupied - please choose another one. "
+  end
+
+  def victory?
+    reverse_board = @board.map{ |a| a.reverse }
+    @board.map{ |row| row.uniq.size == 1 }.any? ||
+    @board.transpose.map{ |row| row.uniq.size == 1 }.any? ||
+    (0..2).map{ |i| @board[i][i] }.uniq.size == 1 ||
+    (0..2).map{ |i| reverse_board[i][i] }.uniq.size == 1
+  end
+
+  def restart?
+    print "Would you like to play again? (Y/N) "
+    if ["Y","y"].include?(gets.chomp)
+      @p1 = nil
+      initialize
+      turns
+    end
   end
 end
 
-# step 1: create a new gameboard instance (b = TTT.new)
-# step 2: prompt the next player to take a turn (b.turns)
-
-# repeat until someone marks 3 Os or 3 Xs in a row (horizontal, vertical, or diagonal)
-# identify the winning player
-
-# horizontal victory: @board.map{ |row| row.uniq.size == 1 }.any?
-# vertical victory: @board.transpose.map{ |row| row.uniq.size == 1 }.any?
-# diagonal victory: (0..2).
-
-# display congratulatory message to the winning player
-# OR, display proclamation of a draw
+b = TTT.new
+b.turns
