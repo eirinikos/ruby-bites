@@ -6,6 +6,7 @@ class TTT
     @row_1 = @board[0]
     @row_2 = @board[1]
     @row_3 = @board[2]
+    @p1, @p2 = nil
   end
 
   def print_board
@@ -42,9 +43,8 @@ class TTT
 
   def turns
     print_board
-    if @p1.nil?  
+    if @p1.nil?
       print "\nPlayer 1, make your move!\nDo you want to play an X or an O? "
-      @p1 = gets.chomp
       x_or_o_chosen?
     elsif @p2.nil?
       @p1 == "O" ? @p2 = "X" : @p2 = "O"
@@ -60,6 +60,7 @@ class TTT
   end
 
   def x_or_o_chosen?
+    @p1 = gets.chomp
     if ["X","O","x","o"].include?(@p1)
       @p1.upcase!
       print "Excellent choice. In which box would you like to place your #{@p1}? "
@@ -96,7 +97,7 @@ class TTT
       puts "Messieurs, mesdames - you have come to a draw."
       restart?
     else
-      player == @p1 ? @turn = @p2 : @turn = @p1
+      player == @p1 ? @turn = @p2 : @turn = @p1 ########################
       turns
     end
   end
@@ -112,7 +113,6 @@ class TTT
   def restart?
     print "Would you like to play again? (Y/N) "
     if ["Y","y"].include?(gets.chomp)
-      @p1 = nil
       initialize
       turns
     end
