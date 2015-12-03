@@ -67,7 +67,6 @@ class TTT
       player_move(@p1)
     else
       print "Sir / Madam, please choose X or O: "
-      @p1 = gets.chomp
       x_or_o_chosen?
     end
   end
