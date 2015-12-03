@@ -8,7 +8,7 @@ class TestTTT < Minitest::Test
   def test_that_players_token_is_placed_on_board
     ttt = TTT.new
     
-    ttt.turns
+    ttt.relay_turns
    
     # user input: x 1 2 3 4 5 6 8 7 9 n
 

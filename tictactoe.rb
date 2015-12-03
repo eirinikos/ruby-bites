@@ -23,101 +23,101 @@ class TTT
       if @row_1[place - 1].class == Fixnum
         @row_1[place - 1] = player
       else
-        occupied_box_prompt(player)
+        prompt_new_box(player)
       end
     when 4, 5, 6
       if @row_2[place - 4].class == Fixnum
         @row_2[place - 4] = player
       else
-        occupied_box_prompt(player)
+        prompt_new_box(player)
       end
     else
       if @row_3[place - 7].class == Fixnum
         @row_3[place - 7] = player
       else
-        occupied_box_prompt(player)
+        prompt_new_box(player)
       end
     end
-    game_over?(player)
+    determine_game_over(player)
   end
 
-  def turns
+  def relay_turns
     print_board
     if @p1.nil?
       print "\nPlayer 1, make your move!\nDo you want to play an X or an O? "
-      x_or_o_chosen?
+      confirm_x_or_o
     elsif @p2.nil?
       @p1 == "O" ? @p2 = "X" : @p2 = "O"
       print "\nPlayer 2, make your move! In which box would you like to place your #{@p2}? "
-      player_move(@p2)
+      mark(@p2)
     elsif @turn == @p1
       print "\nPlayer 1, back to you! In which box would you like to place your #{@p1}? "
-      player_move(@p1)
+      mark(@p1)
     else
       print "\nPlayer 2, back to you! In which box would you like to place your #{@p2}? "
-      player_move(@p2)
+      mark(@p2)
     end
   end
 
-  def x_or_o_chosen?
+  def confirm_x_or_o
     @p1 = gets.chomp
     if ["X","O","x","o"].include?(@p1)
       @p1.upcase!
       print "Excellent choice. In which box would you like to place your #{@p1}? "
-      player_move(@p1)
+      mark(@p1)
     else
       print "Sir / Madam, please choose X or O: "
-      x_or_o_chosen?
+      confirm_x_or_o
     end
   end
 
-  def player_move(player) 
+  def mark(player) 
     @place = gets.chomp.to_i
     if (1..9).include?(@place)
       update_board(player, @place)
     else
       print "Sir / Madam, please choose a valid number: "
-      player_move(player)
+      mark(player)
     end
   end
 
-  def occupied_box_prompt(player)
+  def prompt_new_box(player)
     print_board
     print "\nSTOP in the name of the law! That box is occupied - please choose another one. "
-    player_move(player)
+    mark(player)
   end
 
-  def game_over?(player)
+  def determine_game_over(player)
     if victory?
       print_board
       puts "\nCONGRATULATIONS! You have vanquished your foe!\n\n(╯°□°)╯︵ ┻━┻\n\n"
-      restart?
+      restart_request
     elsif (@board.all? {|row| row.all? {|i| i.class == String} } && !victory?)
       puts "Messieurs, mesdames - you have come to a draw."
-      restart?
+      restart_request
     else
       player == @p1 ? @turn = @p2 : @turn = @p1
-      turns
+      relay_turns
     end
   end
 
   def victory?
     reverse_board = @board.map{ |a| a.reverse }
-    @board.map{ |row| row.uniq.size == 1 }.any? ||
-    @board.transpose.map{ |row| row.uniq.size == 1 }.any? ||
+    @board.any?{ |row| row.uniq.size == 1 } ||
+    @board.transpose.any?{ |row| row.uniq.size == 1 } ||
     (0..2).map{ |i| @board[i][i] }.uniq.size == 1 ||
     (0..2).map{ |i| reverse_board[i][i] }.uniq.size == 1
   end
 
-  def restart?
+  def restart_request
     print "Would you like to play again? (Y/N) "
     if ["Y","y"].include?(gets.chomp)
       initialize
-      turns
+      relay_turns
     end
   end
 end
 
 if __FILE__ == $0
-  TTT.new.turns
+  TTT.new.relay_turns
 end
