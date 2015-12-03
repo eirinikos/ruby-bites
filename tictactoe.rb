@@ -97,7 +97,7 @@ class TTT
       puts "Messieurs, mesdames - you have come to a draw."
       restart?
     else
-      player == @p1 ? @turn = @p2 : @turn = @p1 ########################
+      player == @p1 ? @turn = @p2 : @turn = @p1
       turns
     end
   end
