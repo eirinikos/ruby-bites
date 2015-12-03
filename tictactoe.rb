@@ -118,4 +118,6 @@ class TTT
   end
 end
 
-TTT.new.turns
+if __FILE__ == $0
+  TTT.new.turns
+end
