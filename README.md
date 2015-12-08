@@ -9,8 +9,8 @@ Some of the solutions have been refactored (after examining other Codewars users
 ####_project_euler.rb
 This contains my tiny collection of Project Euler solutions.
 
+####tictactoe.rb
+Run `ruby tictactoe.rb` from your command line to enjoy a game of Tic Tac Toe.
+
 ####cracklepop.rb
 Run `ruby cracklepop.rb` to see what this one does (or, just read the comments :).
-
-####tictactoe.rb
-Run `ruby tictactoe.rb` to enjoy a game of Tic Tac Toe.
