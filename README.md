@@ -1,6 +1,12 @@
 ####Greetings!
 I've pushed these files to Github so that I can track my progress.
 
+####tictactoe.rb
+Run `ruby tictactoe.rb` from your command line to enjoy a game of Tic-Tac-Toe.
+
+####cracklepop.rb
+Run `ruby cracklepop.rb` to see what this one does (or, just read the comments :).
+
 ####_codewars.rb
 This contains most of my recent solutions for Codewars katas.
 (My user profile is [here](http://www.codewars.com/users/eirinikos).)
@@ -8,9 +14,3 @@ Some of the solutions have been refactored (after examining other Codewars users
 
 ####_project_euler.rb
 This contains my tiny collection of Project Euler solutions.
-
-####tictactoe.rb
-Run `ruby tictactoe.rb` from your command line to enjoy a game of Tic Tac Toe.
-
-####cracklepop.rb
-Run `ruby cracklepop.rb` to see what this one does (or, just read the comments :).
