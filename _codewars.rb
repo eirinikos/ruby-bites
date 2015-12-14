@@ -1,55 +1,35 @@
 # codewars kata: sudoku solution validator
 # http://www.codewars.com/kata/sudoku-solution-validator/train/ruby
 def validSolution(board)
-
   array_of_boxes = Array.new
   box = Array.new
   i = 0
 
-  # add arrays for 1st column of boxes
-  3.times do
+  add_box_array = lambda do
     3.times do
-      row = board[i]
-      box.push(row[0]).push(row[1]).push(row[2])
-      i += 1
-    end
+      3.times do
+        row = board[i]
+        box.push(row[0]).push(row[1]).push(row[2])
+        i += 1
+      end
 
-    array_of_boxes << box
-    box = Array.new
+      array_of_boxes << box
+      box = Array.new
+    end
   end
 
-  # reset index & rotate each row
-  i = 0
-  board.each{ |row| row.rotate!(3) }
-
-  # add arrays for 2nd column of boxes
-  3.times do
-    3.times do
-      row = board[i]
-      box.push(row[0]).push(row[1]).push(row[2])
-      i += 1
-    end
-
-    array_of_boxes << box
-    box = Array.new
+  reset_and_rotate = lambda do
+    i = 0
+    board.each{ |row| row.rotate!(3) }
   end
 
-  # reset index & rotate each row
-  i = 0
-  board.each{ |row| row.rotate!(3) }
-
-  # add arrays for 3rd column of boxes
-  3.times do
-    3.times do
-      row = board[i]
-      box.push(row[0]).push(row[1]).push(row[2])
-      i += 1
-    end
-
-    array_of_boxes << box
-    box = Array.new
+  add_reset_rotate = lambda do
+    add_box_array.call
+    reset_and_rotate.call
   end
 
+  2.times {add_reset_rotate.call}
+  add_box_array.call
   all_possible_arrays = (1..9).to_a.permutation.to_a
 
   # each row & each column is a unique permutation of base_array
@@ -60,40 +40,6 @@ def validSolution(board)
   array_of_boxes.all? { |box| all_possible_arrays.include?(box) }
 end
 
-  # try these methods: rotate, shift, assoc, rassoc, combination, send, slice
-  # check each array for uniqueness?
-  # stop if any array has non-unique items?
-  
-true_example =
-[[5, 3, 4, 6, 7, 8, 9, 1, 2], 
- [6, 7, 2, 1, 9, 5, 3, 4, 8],
- [1, 9, 8, 3, 4, 2, 5, 6, 7],
- [8, 5, 9, 7, 6, 1, 4, 2, 3],
- [4, 2, 6, 8, 5, 3, 7, 9, 1],
- [7, 1, 3, 9, 2, 4, 8, 5, 6],
- [9, 6, 1, 5, 3, 7, 2, 8, 4],
- [2, 8, 7, 4, 1, 9, 6, 3, 5],
- [3, 4, 5, 2, 8, 6, 1, 7, 9]]
-
- # these indices represent the start of each box... [0,3,6]
-board[0][0],board[0][1],board[0][2]
-board[1][0],board[1][1],board[1][2]
-board[2][0],board[2][1],board[2][2]
-
-board[3][0],board[3][1],board[3][2]
-board[4][0],board[4][1],board[4][2]
-board[5][0],board[5][1],board[5][2]
-
-board[6][0],board[6][1],board[6][2]
-board[7][0],board[7][1],board[7][2]
-board[8][0],board[8][1],board[8][2]
-
-# divide rows into thirds?
-
-box_1 =
-board[0][0],board[0][1],board[0][2]
-board[1][0],board[1][1],board[1][2]
-board[2][0],board[2][1],board[2][2]
 
 # codewars kata: josephus permutation
 # http://www.codewars.com/kata/5550d638a99ddb113e0000a2/train/ruby
