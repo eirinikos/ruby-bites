@@ -1,3 +1,43 @@
+# codewars kata: don't eat the last cake!
+# http://www.codewars.com/kata/5384df88aa6fc164bb000e7d/train/ruby
+
+
+# codewars kata: josephus survivor
+# http://www.codewars.com/kata/555624b601231dc7a400017a/train/ruby
+# this solution is built on this solution:
+# http://www.codewars.com/kata/reviews/55561d8f01231dce9a000156/groups/5556d6c40ce7853ff3000029
+def josephus_survivor(n,k)
+  # (1..n) people are put into the circle
+  items = (1..n).to_a
+  Array.new(n){items.rotate!(k-1).shift}.last
+end
+
+
+# codewars kata: validate sudoku with size n x n
+# http://www.codewars.com/kata/validate-sudoku-with-size-nxn/train/ruby
+# this solution is built on this solution:
+# http://www.codewars.com/kata/reviews/5593733c289bb3285000000b/groups/56443537dd828c1c86000005
+class Sudoku
+  def initialize(board = [])
+    @rows = board
+    @size = @rows.size
+    @root = Math.sqrt(@size)
+  end
+
+  def contains_all_n?(section)
+    (1..@size).to_a.to_set == section.to_set
+  end
+
+  def is_valid
+    # must contain n arrays, each of n length
+    return false if !@rows.all?{|row| row.length == @size}
+    blocks = @rows.map{|row| row.each_slice(@root).to_a}.transpose.flatten.each_slice(@size).to_a
+    sudoku_sections = @rows + @rows.transpose + blocks
+    sudoku_sections.all?{|section| contains_all_n?(section)}
+  end
+end
+
+
 # codewars kata: sudoku solution validator
 # http://www.codewars.com/kata/sudoku-solution-validator/train/ruby
 def validSolution(board)

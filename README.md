@@ -1,5 +1,5 @@
 ####Greetings!
-I've pushed these files to Github so that I can track my progress.
+I've pushed these files to Github so that I can track my learning progress. This repo is also a sort of bookmark collection of programming challenges that are ideal for eventual refactoring - perhaps in a pair programming or mob programming environment.
 
 ####tictactoe.rb
 Run `ruby tictactoe.rb` from your command line to enjoy a game of Tic-Tac-Toe.
