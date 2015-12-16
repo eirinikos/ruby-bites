@@ -2,6 +2,49 @@
 # http://www.codewars.com/kata/5384df88aa6fc164bb000e7d/train/ruby
 
 
+# codewars kata: roman numerals helper
+# http://www.codewars.com/kata/51b66044bce5799a7f000003/train/ruby
+class RomanNumerals
+  @dict_hash = {M:1000, CM: 900, D:500, CD:400, C:100, XC:90,
+    L:50, XL:40, X:10, IX:9, V:5, IV:4, I:1}
+
+  def self.to_roman(int)
+    string_array = Array.new
+
+    crunch = lambda do |n| (int/n).times{ string_array << @dict_hash.invert[n].to_s }
+      int %= n
+    end
+
+    @dict_hash.each{ |k,v| crunch.call(v) }
+    string_array.join
+  end
+
+  def self.from_roman(string) ##### in progress #####
+    integer = 0
+
+    # iterate through the string
+    @dict_hash.each do |k,v|
+      # determine how many n times in a row the key occurs....
+      n = /#{k.to_s}+/.match(string).to_s.length
+      n.times{
+        integer += v
+        string.sub!(/#{k.to_s}+/,'')
+        # remove corresponding decimal place from front of string
+      } 
+    end
+
+    integer
+  end
+end
+
+Test.assert_equals(RomanNumerals.to_roman(1000), 'M')
+Test.assert_equals(RomanNumerals.from_roman('M'), 1000)
+Test.assert_equals(RomanNumerals.to_roman(1111), 'MCXI')
+
+Test.assert_equals(RomanNumerals.from_roman('MDCLXVI'), 1666)
+Test.assert_equals(RomanNumerals.to_roman(2008), 'MMVIII')
+Test.assert_equals(RomanNumerals.from_roman('MCMXC'), 1990)
+
 # codewars kata: josephus survivor
 # http://www.codewars.com/kata/555624b601231dc7a400017a/train/ruby
 # this solution is built on this solution:
