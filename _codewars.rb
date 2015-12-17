@@ -21,16 +21,18 @@ class RomanNumerals
 
   def self.from_roman(string) ##### in progress #####
     integer = 0
+    dict_array = @dict_hash.to_a
 
     # iterate through the string
-    @dict_hash.each do |k,v|
+    dict_array.each_index do |i|
+      # if dict_array[i][0].length == 1
       # determine how many n times in a row the key occurs....
-      n = /#{k.to_s}+/.match(string).to_s.length
+      n = /#{dict_array[i][0]}+/.match(string).to_s.length
       n.times{
-        integer += v
-        string.sub!(/#{k.to_s}+/,'')
+        integer += dict_array[i][1]
+        string.sub!(/#{dict_array[i][0]}+/,'')
         # remove corresponding decimal place from front of string
-      } 
+      }
     end
 
     integer
