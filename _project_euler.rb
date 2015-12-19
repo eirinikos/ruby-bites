@@ -1,10 +1,21 @@
 # project euler #4:
 # https://projecteuler.net/problem=4
 # a palindromic number reads the same both ways.
-# the largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
+# the largest palindrome made from the product of two 2-digit numbers is 9009 = 99. * 91
 # find the largest palindrome made from the product of two 3-digit numbers.
 
-def palindrome_product
+# see http://stackoverflow.com/questions/3398159/all-factors-of-a-given-number
+factors = lambda do |num|
+    (1..num).map{ |n| [n, num/n] if ((num/n) * n == num) }.compact
+  end
+
+def palindrome_products
+  (10001..1000001).select{ |num| num == num.to_s.reverse.to_i &&
+    factors.call(num).any?{
+      |array| array.all?{
+        |i| i.to_s.length == 3}
+      }
+    }.last
 end
 
 
@@ -15,8 +26,8 @@ end
 
 def max_prime_factor(num)
 # returns the largest prime factor of num
-# (does not work for Bignums..... ;_;)
-  (2..num).select{|n| (num%n==0) && (2...n).none?{|i| n%i==0}}.max
+# does not work for Bignums..... ;_;
+  (2..num).select{ |n| (num % n == 0) && (2...n).none?{ |i| n % i == 0} }.max
 end
 
 
@@ -24,7 +35,7 @@ end
 # https://projecteuler.net/problem=2
 # each new term in the fibonacci sequence is the sum of the previous two terms:
 # 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584
-# find the sum of the even-valued terms whose values are < or = 4,000,000.
+# find the sum of the even-valued terms whose values are < or == 4,000,000.
 
 def fib_sequence(n)
 # creates array of terms that are less than or equal to n
@@ -36,16 +47,16 @@ def fib_sequence(n)
     array << (array[i-2] + array[i-1])
     i += 1  
   end
-  array.select!{|x| x<n || x==n }
+  array.select!{ |x| x < n || x == n }
 end
 
-def fib_sequence(n)
-# creates array for the first n terms
-  array = [0,1]
-  (2..(n+1)).map do |i|
-    array[i] = array[i-2] + array[i-1]
-  end
-end 
+# def fib_sequence(n)
+# # creates array for the first n terms
+#   array = [0,1]
+#   (2..(n+1)).map do |i|
+#     array[i] = array[i-2] + array[i-1]
+#   end
+# end 
 
 def even_fib_sum(array)
 # finds sum of array's even-valued terms
@@ -59,5 +70,5 @@ end
 # project euler #1: sum all multiples of 3 or 5 below 1000
 # https://projecteuler.net/problem=1
 def fizzbuzzsum(n)
- (3...n).select { |i| i%3 == 0 || i%5 == 0 }.reduce(&:+)
+ (3...n).select{ |i| i % 3 == 0 || i % 5 == 0 }.reduce(&:+)
 end
