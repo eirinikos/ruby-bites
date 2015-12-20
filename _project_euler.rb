@@ -1,3 +1,20 @@
+# project euler #5:
+# https://projecteuler.net/problem=5
+# 2520 is the smallest number that can be divided by
+# each of the numbers from 1 to 10 without any remainder.
+# find the smallest positive number that is evenly divisible
+# by all of the numbers from 1 to 20.
+array = Array.new
+
+(813960..465585120).each do |num|
+  if (11..20).all?{ |n| num % n == 0 }
+    array << num
+  end
+end
+
+array.first
+
+
 # project euler #4:
 # https://projecteuler.net/problem=4
 # a palindromic number reads the same both ways.
@@ -6,8 +23,8 @@
 
 # see http://stackoverflow.com/questions/3398159/all-factors-of-a-given-number
 factors = lambda do |num|
-    (1..num).map{ |n| [n, num/n] if ((num/n) * n == num) }.compact
-  end
+  (1..num).map{ |n| [n, num/n] if ((num/n) * n == num) }.compact
+end
 
 def palindrome_products
   (10001..1000001).select{ |num| num == num.to_s.reverse.to_i &&
