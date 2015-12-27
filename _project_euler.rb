@@ -1,3 +1,12 @@
+# project euler #7:
+# https://projecteuler.net/problem=7
+# by listing the first six prime numbers (2, 3, 5, 7, 11, 13)
+# we can see that the 6th prime is 13.
+# find the 10,001st prime number.
+
+require 'prime'
+Prime.first(10001).last
+
 # project euler #6:
 # https://projecteuler.net/problem=6
 # the sum of the squares of the first ten natural numbers is:
@@ -9,8 +18,7 @@
 # find the difference between the sum of the squares of the first one hundred
 # natural numbers and the square of the sum.
 
-(1..100).map{ |n| n**2 }.reduce(&:+)
-(1..100).reduce(&:+)**2
+(1..100).reduce(&:+)**2 - (1..100).map{ |n| n**2 }.reduce(&:+)
 
 
 # project euler #5:
