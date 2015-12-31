@@ -64,6 +64,12 @@ end
 # the prime factors of 13195 are 5, 7, 13 and 29.
 # what is the largest prime factor of the number 600851475143?
 
+require 'prime'
+
+factors = lambda do |num|
+  (1..num).map{ |n| [n, num/n] if ((num/n) * n == num) }.compact
+end
+
 def max_prime_factor(num)
 # returns the largest prime factor of num
 # does not work for Bignums..... ;_;

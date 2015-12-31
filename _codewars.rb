@@ -2,6 +2,19 @@
 # http://www.codewars.com/kata/5384df88aa6fc164bb000e7d/train/ruby
 
 
+# codewars kata: surrounding primes for a value
+# http://www.codewars.com/kata/560b8d7106ede725dd0000e2/train/ruby
+require 'prime'
+
+def prime_bef_aft(num)
+  primes = []
+  Prime.each(num){ |n| primes << n }
+  primes.last == num ? bef_prime = primes[-2] : bef_prime = primes.last
+  aft_prime = Prime.first(primes.size + 1).last
+  [bef_prime, aft_prime]
+end
+
+
 # codewars kata: roman numerals helper
 # http://www.codewars.com/kata/51b66044bce5799a7f000003/train/ruby
 class RomanNumerals
