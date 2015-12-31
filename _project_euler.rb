@@ -1,3 +1,13 @@
+# project euler #10:
+# https://projecteuler.net/problem=10
+# the sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
+# find the sum of all the primes below two million.
+
+require 'prime'
+primes = []
+Prime.each(2000000){ |n| primes << n }
+primes.reduce(&:+)
+
 # project euler #7:
 # https://projecteuler.net/problem=7
 # by listing the first six prime numbers (2, 3, 5, 7, 11, 13)
