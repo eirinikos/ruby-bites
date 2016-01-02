@@ -1,3 +1,34 @@
+# project euler #47:
+# https://projecteuler.net/problem=47
+# the first two consecutive numbers to have two distinct
+# prime factors are: 
+# 14 = 2 × 7 and 15 = 3 × 5
+# the first three consecutive numbers to have three distinct
+# prime factors are: 
+# 644 = 2**2 × 7 × 23, 645 = 3 × 5 × 43, 646 = 2 × 17 × 19
+# find the first four consecutive integers to have four distinct
+# prime factors. What is the first of these numbers?
+
+require 'prime'
+
+# n1, n2, n3 are consecutive integers
+# n1, n2, n3 - .prime_division yields 4 distinct prime factors each
+
+n2 == n1.next
+n3 == n2.next
+n4 == n3.next
+
+n1.prime_division.count == 4
+n2.prime_division.count == 4
+n3.prime_division.count == 4
+n4.prime_division.count == 4
+
+n1.prime_division.flatten.values_at(0,2,4,6).all?{ |i| i.prime? }
+n2.prime_division.flatten.values_at(0,2,4,6).all?{ |i| i.prime? }
+n3.prime_division.flatten.values_at(0,2,4,6).all?{ |i| i.prime? }
+n4.prime_division.flatten.values_at(0,2,4,6).all?{ |i| i.prime? }
+
+
 # project euler #10:
 # https://projecteuler.net/problem=10
 # the sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
@@ -8,6 +39,7 @@ primes = []
 Prime.each(2000000){ |n| primes << n }
 primes.reduce(&:+)
 
+
 # project euler #7:
 # https://projecteuler.net/problem=7
 # by listing the first six prime numbers (2, 3, 5, 7, 11, 13)
@@ -16,6 +48,7 @@ primes.reduce(&:+)
 
 require 'prime'
 Prime.first(10001).last
+
 
 # project euler #6:
 # https://projecteuler.net/problem=6
