@@ -1,5 +1,11 @@
-# codewars kata: don't eat the last cake!
-# http://www.codewars.com/kata/5384df88aa6fc164bb000e7d/train/ruby
+# codewars kata: matrix addition
+# http://www.codewars.com/kata/526233aefd4764272800036f/train/ruby
+
+def matrixAddition(a, b) 
+  c = [] << a << b
+  c.transpose.map{ |i| i.transpose }.map{ |s|
+    s.map{ |p| p.reduce(&:+)}}
+end
 
 
 # codewars kata: surrounding primes for a value
