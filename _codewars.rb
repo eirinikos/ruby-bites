@@ -1,3 +1,27 @@
+# codewars kata: rotate an array matrix
+# http://www.codewars.com/kata/525a566985a9a47bc8000670/train/ruby
+
+def rotate(matrix, direction)
+  if direction == "clockwise"
+    matrix.transpose.map{|i| i.reverse}
+  else
+    rotated = []
+    matrix.transpose.map{|i| i.reverse}.flatten.reverse.each_slice(matrix.size){
+      |a| rotated << a}
+    rotated
+  end
+end
+
+# refactored...
+def rotate(matrix, direction)
+  if direction == "clockwise"
+    matrix.transpose.map(&:reverse)
+  else
+    matrix.transpose.reverse
+  end
+end
+
+
 # codewars kata: matrix addition
 # http://www.codewars.com/kata/526233aefd4764272800036f/train/ruby
 
