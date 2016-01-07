@@ -41,6 +41,27 @@ class TTT
     determine_game_over(player)
   end
 
+  def display_menu
+    print "Would you like to play against the computer? (Y/N) "
+    if ["Y","y"].include?(gets.chomp)
+      print "Would you like to play first? (Y/N) "
+      ["Y","y"].include?(gets.chomp) ? relay_turns : computer_move ### account for computer's turn
+    else
+      @computer = nil
+      relay_turns
+    end
+  end
+
+  def computer_move
+    @computer = ["X","O"].sample
+    @place = @board.flatten.select{ |i| i.class == Fixnum }.sample
+    # sample of all available spaces within @board
+
+    update_board(@computer, @place)
+    print "Watch out, Human! Computer has made its first move!"
+    # computer decides where to play X or O; display board
+  end
+
   def relay_turns
     print_board
     if @p1.nil?
@@ -92,11 +113,15 @@ class TTT
       print_board
       puts "\nCONGRATULATIONS! You have vanquished your foe!\n\n(╯°□°)╯︵ ┻━┻\n\n"
       restart_request
-    elsif (@board.all? {|row| row.all? {|i| i.class == String} } && !victory?)
+    elsif (@board.all?{|row| row.all? {|i| i.class == String} } && !victory?)
       puts "Messieurs, mesdames - you have come to a draw."
       restart_request
     else
-      player == @p1 ? @turn = @p2 : @turn = @p1
+      if @computer.nil?
+        player == @p1 ? @turn = @p2 : @turn = @p1
+      else
+        player == @computer ? @turn = @human : @turn = @computer
+      end
       relay_turns
     end
   end
