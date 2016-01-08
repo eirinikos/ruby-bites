@@ -11,27 +11,9 @@
 
 require 'prime'
 
-# n1, n2, n3 are consecutive integers
-# n1, n2, n3 - .prime_division yields 4 distinct prime factors each
-
-n1 > 19094
-
-(19094..99999).select{ |n| n.prime_division.count == 4 &&
-  (n.succ.prime_division.count == 4 || n.pred.prime_division.count == 4) }
-
-n2 == n1.next
-n3 == n2.next
-n4 == n3.next
-
-n1.prime_division.count == 4
-n2.prime_division.count == 4
-n3.prime_division.count == 4
-n4.prime_division.count == 4
-
-n1.prime_division.flatten.values_at(0,2,4,6).all?{ |i| i.prime? }
-n2.prime_division.flatten.values_at(0,2,4,6).all?{ |i| i.prime? }
-n3.prime_division.flatten.values_at(0,2,4,6).all?{ |i| i.prime? }
-n4.prime_division.flatten.values_at(0,2,4,6).all?{ |i| i.prime? }
+(100000..999999).select{ |n| n.prime_division.count == 4 &&
+  n.succ.prime_division.count == 4 && n.succ.succ.prime_division.count == 4 &&
+  n.succ.succ.succ.prime_division.count == 4 }.first
 
 
 # project euler #10:
