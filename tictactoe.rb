@@ -6,7 +6,7 @@ class TTT
     @row_1 = @board[0]
     @row_2 = @board[1]
     @row_3 = @board[2]
-    @p1, @p2 = nil
+    @p1, @p2, @computer, @human, @turn = nil
   end
 
   def print_board
@@ -41,8 +41,61 @@ class TTT
     determine_game_over(player)
   end
 
-  def relay_turns
+  def display_menu
+    print "Would you like to play against the computer? (Y/N) "
+    if ["Y","y"].include?(gets.chomp)
+      print "Would you like to play first? (Y/N) "
+      ["Y","y"].include?(gets.chomp) ? @computer = 0 : @computer = 1
+      relay_computer_human_turns
+    else
+      relay_player_turns
+    end
+  end
+
+  def computer_move  
+    # sample of all available spaces within @board
+    @place = @board.flatten.select{ |i| i.class == Fixnum }.sample
+    update_board(@computer, @place)
+  end
+
+  def computer_think
+    print "\nTHE ALMIGHTY COMPUTER IS CONTEMPLATING ITS MOVE...\n"
+    3.times do
+      sleep(1) # sleep for 1 second
+      print "\nCOMPUTING...\n"
+    end
+    print "\nWHAM!\n"
+    sleep(1)
+  end
+
+  def relay_computer_human_turns
     print_board
+
+    if @computer == 0 && @human.nil? # human plays first move of the game
+      print "\nHuman, do you want to play an X or an O? "
+      confirm_x_or_o
+    elsif @computer == 1 # computer plays first move of the game
+      @computer = ["X","O"].sample
+      computer_move
+    elsif @human.nil? # human plays second (human's first move)
+      @computer == "O" ? @human = "X" : @human = "O"
+      print "\nWatch out, Human! Computer has made its first move!"
+      print "\nIn which box would you like to place your #{@human}? "
+      mark(@human)
+    elsif @computer == 0  # computer plays second (computer's first move)
+      @human == "O" ? @computer = "X" : @computer = "O"
+      computer_move
+    elsif @turn == @human # human's subsequent move
+      print "\nHuman, it's your move again - choose carefully where to place your #{@human}: "
+      mark(@human)
+    else # computer's subsequent move
+      computer_move
+    end
+  end
+
+  def relay_player_turns
+    print_board
+    
     if @p1.nil?
       print "\nPlayer 1, make your move!\nDo you want to play an X or an O? "
       confirm_x_or_o
@@ -60,11 +113,18 @@ class TTT
   end
 
   def confirm_x_or_o
-    @p1 = gets.chomp
-    if ["X","O","x","o"].include?(@p1)
-      @p1.upcase!
-      print "Excellent choice. In which box would you like to place your #{@p1}? "
-      mark(@p1)
+    if @computer.nil?
+      @p1 = gets.chomp
+      player = @p1
+    else
+      @human = gets.chomp
+      player = @human
+    end
+
+    if ["X","O","x","o"].include?(player)
+      player.upcase!
+      print "Excellent choice. In which box would you like to place your #{player}? "
+      mark(player)
     else
       print "Sir / Madam, please choose X or O: "
       confirm_x_or_o
@@ -89,15 +149,32 @@ class TTT
 
   def determine_game_over(player)
     if victory?
+      if @turn == @computer
+        computer_think
+      end
+
       print_board
-      puts "\nCONGRATULATIONS! You have vanquished your foe!\n\n(╯°□°)╯︵ ┻━┻\n\n"
+      
+      if @turn == @p1 || @turn == @p2 || @turn == @human
+        puts "\nCONGRATULATIONS! You have vanquished your foe!\n\n(╯°□°)╯︵ ┻━┻\n\n"
+      else
+        puts "\nPUNY HUMAN, ACCEPT DEFEAT!"
+      end
       restart_request
-    elsif (@board.all? {|row| row.all? {|i| i.class == String} } && !victory?)
+    elsif (@board.all?{|row| row.all? {|i| i.class == String} } && !victory?)
       puts "Messieurs, mesdames - you have come to a draw."
       restart_request
     else
-      player == @p1 ? @turn = @p2 : @turn = @p1
-      relay_turns
+      if @computer.nil?
+        player == @p1 ? @turn = @p2 : @turn = @p1
+        relay_player_turns
+      else
+        player == @computer ? @turn = @human : @turn = @computer
+        if @turn == @human
+          computer_think
+        end
+        relay_computer_human_turns
+      end
     end
   end
 
@@ -113,11 +190,11 @@ class TTT
     print "Would you like to play again? (Y/N) "
     if ["Y","y"].include?(gets.chomp)
       initialize
-      relay_turns
+      display_menu
     end
   end
 end
 
 if __FILE__ == $0
-  TTT.new.relay_turns
+  TTT.new.display_menu
 end
