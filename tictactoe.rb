@@ -72,7 +72,7 @@ class TTT
     print_board
 
     if @computer == 0 && @human.nil? # human plays first move of the game
-      print "\nHuman, you start!\nDo you want to play an X or an O? "
+      print "\nHuman, do you want to play an X or an O? "
       confirm_x_or_o
     elsif @computer == 1 # computer plays first move of the game
       @computer = ["X","O"].sample
@@ -80,7 +80,7 @@ class TTT
     elsif @human.nil? # human plays second (human's first move)
       @computer == "O" ? @human = "X" : @human = "O"
       print "\nWatch out, Human! Computer has made its first move!"
-      print "\nHuman, in which box would you like to place your #{@human}? "
+      print "\nIn which box would you like to place your #{@human}? "
       mark(@human)
     elsif @computer == 0  # computer plays second (computer's first move)
       @human == "O" ? @computer = "X" : @computer = "O"
