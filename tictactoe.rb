@@ -67,21 +67,21 @@ class TTT
       else
         prompt_new_box(player)
       end
-    when 4, 5, 6, 7
-      if @four_board_row_2[place - 4].class == Fixnum
-        @four_board_row_2[place - 4] = player
+    when 5, 6, 7, 8
+      if @four_board_row_2[place - 5].class == Fixnum
+        @four_board_row_2[place - 5] = player
       else
         prompt_new_box(player)
       end
-    when 8, 9, 10, 11
-      if @four_board_row_3[place - 8].class == Fixnum
-        @four_board_row_3[place - 8] = player
+    when 9, 10, 11, 12
+      if @four_board_row_3[place - 9].class == Fixnum
+        @four_board_row_3[place - 9] = player
       else
         prompt_new_box(player)
       end
     else
-      if @four_board_row_4[place - 12].class == Fixnum
-        @four_board_row_3[place - 12] = player
+      if @four_board_row_4[place - 13].class == Fixnum
+        @four_board_row_4[place - 13] = player
       else
         prompt_new_box(player)
       end
@@ -195,8 +195,10 @@ class TTT
 
   def mark(player) 
     @place = gets.chomp.to_i
-    if (1..9).include?(@place) ###### account for three_board or four_board
-      update_board(player, @place)
+    if (@board == @three_board && (1..9).include?(@place)) ||
+      (@board == @four_board && (1..16).include?(@place))
+      @board == @three_board ? update_three_board(player, @place) :
+      update_four_board(player, @place)
     else
       print "Sir / Madam, please choose a valid number: "
       mark(player)
@@ -204,7 +206,7 @@ class TTT
   end
 
   def prompt_new_box(player)
-    print_board ###### account for three_board or four_board
+    @board == @three_board ? print_three_board : print_four_board
     print "\nSTOP in the name of the law! That box is occupied - please choose another one. "
     mark(player)
   end
@@ -215,7 +217,7 @@ class TTT
         computer_think
       end
 
-      print_board ###### account for three_board or four_board
+      @board == @three_board ? print_three_board : print_four_board
       
       if @turn == @p1 || @turn == @p2 || @turn == @human
         puts "\nCONGRATULATIONS! You have vanquished your foe!\n\n(╯°□°)╯︵ ┻━┻\n\n"
@@ -240,12 +242,15 @@ class TTT
     end
   end
 
-  def victory? ###### account for three_board or four_board
+  def victory?
     reverse_board = @board.map{ |a| a.reverse }
     @board.any?{ |row| row.uniq.size == 1 } ||
     @board.transpose.any?{ |row| row.uniq.size == 1 } ||
-    (0..2).map{ |i| @board[i][i] }.uniq.size == 1 ||
-    (0..2).map{ |i| reverse_board[i][i] }.uniq.size == 1
+    (@board == @three_board && (0..2).map{ |i| @board[i][i] }.uniq.size == 1) ||
+    (@board == @three_board && (0..2).map{ |i| reverse_board[i][i] }.uniq.size == 1) ||
+
+    (@board == @four_board && (0..3).map{ |i| @board[i][i] }.uniq.size == 1) ||
+    (@board == @four_board && (0..3).map{ |i| reverse_board[i][i] }.uniq.size == 1)  
   end
 
   def restart_request
