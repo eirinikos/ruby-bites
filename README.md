@@ -4,6 +4,8 @@ I've pushed these files to Github so that I can track my learning progress. This
 ####tictactoe.rb
 Run `ruby tictactoe.rb` from your command line to enjoy a game of Tic-Tac-Toe.
 
+Play against another human or play against the computer; play on a conventional 3x3 board or play on a 4x4 board. :)
+
 ####cracklepop.rb
 Run `ruby cracklepop.rb` to see what this one does (or, just read the comments :).
 
