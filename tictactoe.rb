@@ -29,21 +29,10 @@ class TTT
         " #{@flat_4_board[12]} | #{@flat_4_board[13]} | #{@flat_4_board[14]} | #{@flat_4_board[15]} "
   end
 
-  def update_three_board(player, place)
-    if @flat_3_board[place - 1].class == Fixnum
-      @flat_3_board[place - 1] = player
-      @board = @flat_3_board.each_slice(@choice).to_a
-    else
-      prompt_new_box(player)
-    end
-
-    determine_game_over(player)
-  end
-
-  def update_four_board(player, place)
-    if @flat_4_board[place - 1].class == Fixnum
-      @flat_4_board[place - 1] = player
-      @board = @flat_4_board.each_slice(@choice).to_a
+  update_board = lambda do |flat_board, player, place|
+    if flat_board[place - 1].class == Fixnum
+      flat_board[place - 1] = player
+      @board = flat_board.each_slice(@choice).to_a
     else
       prompt_new_box(player)
     end
@@ -78,7 +67,8 @@ class TTT
   def computer_move  
     # sample of all available spaces within @board 
     @place = @board.flatten.select{ |i| i.class == Fixnum }.sample
-    @choice == 3 ? update_three_board(@computer, @place) : update_four_board(@computer, @place)
+    @choice == 3 ? update_board.call(@flat_3_board, @computer, @place) :
+    update_board.call(@flat_4_board, @computer, @place)
   end
 
   def computer_think
@@ -158,8 +148,8 @@ class TTT
     @place = gets.chomp.to_i
     if (@choice == 3 && (1..9).include?(@place)) ||
       (@choice == 4 && (1..16).include?(@place))
-      @choice == 3 ? update_three_board(player, @place) :
-      update_four_board(player, @place)
+      @choice == 3 ? update_board.call(@flat_3_board, player, @place) :
+      update_board.call(@flat_4_board, player, @place)
     else
       print "Sir / Madam, please choose a valid number: "
       mark(player)
