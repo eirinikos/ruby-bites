@@ -1,62 +1,61 @@
 class TTT
-  def initialize
-    @three_board = [[1, 2, 3],[4, 5, 6],[7, 8, 9]]
-    @flat_3_board = @three_board.flatten
-
-    @four_board =  [[1, 2, 3, 4], [5, 6, 7, 8],
-                      [9, 10, 11, 12], [13, 14, 15, 16]]
-    @flat_4_board = @four_board.flatten
-            
-    @p1, @p2, @computer, @human, @turn, @choice = nil
-    @board = @three_board
+  def initialize            
+    @player_1, @player_2, @computer, @human, @turn, @dimension, @board = nil
   end
 
   def print_three_board
-    puts "\n #{@flat_3_board[0]} | #{@flat_3_board[1]} | #{@flat_3_board[2]} ",
+    puts "\n #{@board[0]} | #{@board[1]} | #{@board[2]} ",
         "----------",
-        " #{@flat_3_board[3]} | #{@flat_3_board[4]} | #{@flat_3_board[5]} ",
+        " #{@board[3]} | #{@board[4]} | #{@board[5]} ",
         "----------",
-        " #{@flat_3_board[6]} | #{@flat_3_board[7]} | #{@flat_3_board[8]} "
+        " #{@board[6]} | #{@board[7]} | #{@board[8]} "
   end
 
   def print_four_board
-    puts "\n  #{@flat_4_board[0]} |  #{@flat_4_board[1]} | #{@flat_4_board[2]}  | #{@flat_4_board[3]} ",
+    puts "\n  #{@board[0]} |  #{@board[1]} |  #{@board[2]} |  #{@board[3]}",
         "-------------------",
-        "  #{@flat_4_board[4]} |  #{@flat_4_board[5]} | #{@flat_4_board[6]}  | #{@flat_4_board[7]} ",
+        "  #{@board[4]} |  #{@board[5]} |  #{@board[6]} |  #{@board[7]}",
         "-------------------",
-        "  #{@flat_4_board[8]} | #{@flat_4_board[9]} | #{@flat_4_board[10]} | #{@flat_4_board[11]} ",
+        "  #{@board[8]} | #{@board[9]} | #{@board[10]} | #{@board[11]} ",
         "-------------------",
-        " #{@flat_4_board[12]} | #{@flat_4_board[13]} | #{@flat_4_board[14]} | #{@flat_4_board[15]} "
+        " #{@board[12]} | #{@board[13]} | #{@board[14]} | #{@board[15]} "
   end
 
-  update_board = lambda do |flat_board, player, place|
-    if flat_board[place - 1].class == Fixnum
-      flat_board[place - 1] = player
-      @board = flat_board.each_slice(@choice).to_a
+  def available?(box)
+    box.class == Fixnum
+  end
+
+  def update_board(player, place)
+    if available?(@board[place - 1])
+      @board[place - 1] = player.rjust(place.to_s.length)
     else
       prompt_new_box(player)
     end
-
     determine_game_over(player)
   end
 
+  def yes?
+    ["Y","y"].include?(gets.chomp)
+  end
+
   def display_menu
-    # choose board size
     print "Would you like to play on a 3 x 3 board or a 4 x 4 board?\n"
     print "Enter '3' for the former or '4' for the latter: "
-    @choice = gets.chomp.to_i
-    if @choice == 4
-      @board = @four_board
-    elsif @choice != 3 && @choice != 4
-      @choice == 3
+    @dimension = gets.chomp.to_i
+    if @dimension == 3
+      @board = (1..9).to_a
+    elsif @dimension == 4
+      @board = (1..16).to_a
+    else
+      @dimension = 3
+      @board = (1..9).to_a
       print "That's not a valid choice, so we'll just default to a 3 x 3 board.\n"
     end
 
-    # choose whether to play against computer
     print "Would you like to play against the computer? (Y/N) "
-    if ["Y","y"].include?(gets.chomp)
+    if yes?
       print "Would you like to play first? (Y/N) "
-      ["Y","y"].include?(gets.chomp) ? @computer = 0 : @computer = 1
+      yes? ? @computer = 0 : @computer = 1
       relay_computer_human_turns
     else
       print "OK, let's proceed with two human players...\n"
@@ -65,16 +64,16 @@ class TTT
   end
 
   def computer_move  
+    computer_think
     # sample of all available spaces within @board 
-    @place = @board.flatten.select{ |i| i.class == Fixnum }.sample
-    @choice == 3 ? update_board.call(@flat_3_board, @computer, @place) :
-    update_board.call(@flat_4_board, @computer, @place)
+    @place = @board.flatten.select{ |i| available?(i) }.sample
+    update_board(@computer, @place)
   end
 
   def computer_think
     print "\nTHE ALMIGHTY COMPUTER IS CONTEMPLATING ITS MOVE...\n"
     3.times do
-      sleep(1) # sleep for 1 second
+      sleep(1)
       print "\nCOMPUTING...\n"
     end
     print "\nWHAM!\n"
@@ -82,7 +81,7 @@ class TTT
   end
 
   def relay_computer_human_turns
-    @choice == 3 ? print_three_board : print_four_board
+    @dimension == 3 ? print_three_board : print_four_board
 
     if @computer == 0 && @human.nil? # human plays first move of the game
       print "\nHuman, do you want to play an X or an O? "
@@ -90,12 +89,12 @@ class TTT
     elsif @computer == 1 # computer plays first move of the game
       @computer = ["X","O"].sample
       computer_move
-    elsif @human.nil? # human plays second (human's first move)
+    elsif @human.nil? # human plays second (this is human's first move)
       @computer == "O" ? @human = "X" : @human = "O"
       print "\nWatch out, Human! Computer has made its first move!"
       print "\nIn which box would you like to place your #{@human}? "
       mark(@human)
-    elsif @computer == 0  # computer plays second (computer's first move)
+    elsif @computer == 0  # computer plays second (this is computer's first move)
       @human == "O" ? @computer = "X" : @computer = "O"
       computer_move
     elsif @turn == @human # human's subsequent move
@@ -107,28 +106,28 @@ class TTT
   end
 
   def relay_player_turns
-    @choice == 3 ? print_three_board : print_four_board
+    @dimension == 3 ? print_three_board : print_four_board
     
-    if @p1.nil?
+    if @player_1.nil?
       print "\nPlayer 1, make your move!\nDo you want to play an X or an O? "
       confirm_x_or_o
-    elsif @p2.nil?
-      @p1 == "O" ? @p2 = "X" : @p2 = "O"
-      print "\nPlayer 2, make your move! In which box would you like to place your #{@p2}? "
-      mark(@p2)
-    elsif @turn == @p1
-      print "\nPlayer 1, back to you! In which box would you like to place your #{@p1}? "
-      mark(@p1)
+    elsif @player_2.nil?
+      @player_1 == "O" ? @player_2 = "X" : @player_2 = "O"
+      print "\nPlayer 2, make your move! In which box would you like to place your #{@player_2}? "
+      mark(@player_2)
+    elsif @turn == @player_1
+      print "\nPlayer 1, back to you! In which box would you like to place your #{@player_1}? "
+      mark(@player_1)
     else
-      print "\nPlayer 2, back to you! In which box would you like to place your #{@p2}? "
-      mark(@p2)
+      print "\nPlayer 2, back to you! In which box would you like to place your #{@player_2}? "
+      mark(@player_2)
     end
   end
 
   def confirm_x_or_o
     if @computer.nil?
-      @p1 = gets.chomp
-      player = @p1
+      @player_1 = gets.chomp
+      player = @player_1
     else
       @human = gets.chomp
       player = @human
@@ -146,10 +145,9 @@ class TTT
 
   def mark(player) 
     @place = gets.chomp.to_i
-    if (@choice == 3 && (1..9).include?(@place)) ||
-      (@choice == 4 && (1..16).include?(@place))
-      @choice == 3 ? update_board.call(@flat_3_board, player, @place) :
-      update_board.call(@flat_4_board, player, @place)
+    if (@dimension == 3 && (1..9).include?(@place)) ||
+      (@dimension == 4 && (1..16).include?(@place))
+      update_board(player, @place)
     else
       print "Sir / Madam, please choose a valid number: "
       mark(player)
@@ -157,62 +155,57 @@ class TTT
   end
 
   def prompt_new_box(player)
-    @choice == 3 ? print_three_board : print_four_board
+    @dimension == 3 ? print_three_board : print_four_board
     print "\nSTOP in the name of the law! That box is occupied - please choose another one. "
     mark(player)
   end
 
   def determine_game_over(player)
     if victory?
-      if @turn == @computer
-        computer_think
-      end
-
-      @choice == 3 ? print_three_board : print_four_board
+      @dimension == 3 ? print_three_board : print_four_board
       
-      if @turn == @p1 || @turn == @p2 || @turn == @human
+      if @turn == @player_1 || @turn == @player_2 || @turn == @human
         puts "\nCONGRATULATIONS! You have vanquished your foe!\n\n(╯°□°)╯︵ ┻━┻\n\n"
       else
         puts "\nPUNY HUMAN, ACCEPT DEFEAT!"
       end
       restart_request
-    elsif (@board.all?{|row| row.all? {|i| i.class == String} } && !victory?)      
+    elsif (@board.none?{|box| available?(box)} && !victory?)      
       puts "Messieurs, mesdames - you have come to a draw."
       restart_request
     else
       if @computer.nil?
-        player == @p1 ? @turn = @p2 : @turn = @p1
+        player == @player_1 ? @turn = @player_2 : @turn = @player_1
         relay_player_turns
       else
         player == @computer ? @turn = @human : @turn = @computer
-        if @turn == @human
-          computer_think
-        end
         relay_computer_human_turns
       end
     end
   end
 
   def victory?
-    reverse_board = @board.map{ |a| a.reverse }
-    @board.any?{ |row| row.uniq.size == 1 } ||
-    @board.transpose.any?{ |row| row.uniq.size == 1 } ||
-    (@choice == 3 && (0..2).map{ |i| @board[i][i] }.uniq.size == 1) ||
-    (@choice == 3 && (0..2).map{ |i| reverse_board[i][i] }.uniq.size == 1) ||
+    sliced_board = @board.each_slice(@dimension).to_a
+    reversed_sliced_board = sliced_board.map{ |a| a.reverse }
 
-    (@choice == 4 && (0..3).map{ |i| @board[i][i] }.uniq.size == 1) ||
-    (@choice == 4 && (0..3).map{ |i| reverse_board[i][i] }.uniq.size == 1)  
+    sliced_board.any?{ |row| row.uniq.size == 1 } ||
+    sliced_board.transpose.any?{ |row| row.uniq.size == 1 } ||
+    (@dimension == 3 && (0..2).map{ |i| sliced_board[i][i] }.uniq.size == 1) ||
+    (@dimension == 3 && (0..2).map{ |i| reversed_sliced_board[i][i] }.uniq.size == 1) ||
+    (@dimension == 4 && (0..3).map{ |i| sliced_board[i][i] }.uniq.size == 1) ||
+    (@dimension == 4 && (0..3).map{ |i| reversed_sliced_board[i][i] }.uniq.size == 1)  
   end
 
   def restart_request
     print "Would you like to play again? (Y/N) "
-    if ["Y","y"].include?(gets.chomp)
-      initialize
-      display_menu
+    if ["N","n"].include?(gets.chomp)
+      exit(0)
     end
   end
 end
 
 if __FILE__ == $0
-  TTT.new.display_menu
+  loop do
+    TTT.new.display_menu
+  end
 end
