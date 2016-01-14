@@ -6,6 +6,9 @@ Run `ruby tictactoe.rb` from your command line to enjoy a game of Tic-Tac-Toe.
 
 Play against another human or play against the computer; play on a conventional 3x3 board or play on a 4x4 board. :)
 
+####number_guess.rb
+Run `ruby number_guess.rb` to see what this one does (or, just read the comments :).
+
 ####cracklepop.rb
 Run `ruby cracklepop.rb` to see what this one does (or, just read the comments :).
 
