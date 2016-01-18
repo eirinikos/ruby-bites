@@ -26,8 +26,8 @@ class TTT
   end
 
   def update_board(player, place)
-    if available?(@board[place - 1])
-      @board[place - 1] = player.rjust(place.to_s.length)
+    if available?(@board[place.to_i - 1])
+      @board[place.to_i - 1] = player.rjust(place.to_s.length)
     else
       prompt_new_box(player)
     end
