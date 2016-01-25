@@ -1,16 +1,10 @@
 ####Greetings!
-I've pushed these files to Github so that I can track my learning progress. This repo is also a sort of bookmark collection of programming challenges that are ideal for eventual refactoring - perhaps in a pair programming or mob programming environment.
+This repo houses several stand-alone programs that are written in Ruby - mostly to solve various small programming challenges. It's also a collection of fun things I hope to return to again and again for pair programming nights around town.
 
 ####tictactoe.rb
 Run `ruby tictactoe.rb` from your command line to enjoy a game of Tic-Tac-Toe.
 
 Play against another human or play against the computer; play on a conventional 3x3 board or play on a 4x4 board. :)
-
-####number_guess.rb
-Run `ruby number_guess.rb` to see what this one does (or, just read the comments :).
-
-####cracklepop.rb
-Run `ruby cracklepop.rb` to see what this one does (or, just read the comments :).
 
 ####_codewars.rb
 This contains most of my recent solutions for Codewars katas.
@@ -18,4 +12,11 @@ This contains most of my recent solutions for Codewars katas.
 Some of the solutions have been refactored (after examining other Codewars users' solutions); I've knowingly left some solutions as-is (i.e., written at a low-level).
 
 ####_project_euler.rb
-This contains my tiny collection of Project Euler solutions.
+This comprises my tiny collection of Project Euler solutions.
+
+####number_guess.rb
+Run `ruby number_guess.rb` to see what this one does (or, just read the comments).
+
+####cracklepop.rb
+Run `ruby cracklepop.rb` to see what this one does (or, just read the comments).
+
