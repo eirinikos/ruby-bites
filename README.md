@@ -1,10 +1,10 @@
-####Greetings!
-This repo houses several stand-alone programs that are written in Ruby - mostly to solve various small programming challenges. It's also a collection of fun things I hope to return to again and again for pair programming nights around town.
+###Greetings!
+This repo houses several stand-alone programs that are written in Ruby - mostly to solve various small programming challenges. It's also a collection of fun things I hope to return to again and again for pair programming sessions around town.
 
 ####tictactoe.rb
 Run `ruby tictactoe.rb` from your command line to enjoy a game of Tic-Tac-Toe.
 
-Play against another human or play against the computer; play on a conventional 3x3 board or play on a 4x4 board. :)
+Play against another human or play against an arrogant computer adversary; play on a conventional 3x3 board or play on a 4x4 board.
 
 ####_codewars.rb
 This contains most of my recent solutions for Codewars katas.
@@ -19,4 +19,3 @@ Run `ruby number_guess.rb` to see what this one does (or, just read the comments
 
 ####cracklepop.rb
 Run `ruby cracklepop.rb` to see what this one does (or, just read the comments).
-
