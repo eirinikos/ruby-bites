@@ -1,3 +1,30 @@
+# project euler #35:
+# https://projecteuler.net/problem=35
+# the number, 197, is called a circular prime because all rotations
+# of the digits: 197, 971, and 719, are themselves prime.
+# there are thirteen such primes below 100:
+# 2, 3, 5, 7, 11, 13, 17, 31, 37, 71, 73, 79, and 97.
+# how many circular primes are there below one million?
+
+require 'prime'
+
+circular_primes = []
+
+Prime.each(1000000) do |num|
+  temp_array = []
+  char_array = num.to_s.chars
+
+  char_array.each_index do |i|
+    temp_array << char_array.rotate(i).join.to_i
+  end
+
+  if temp_array.all?{ |n| n.prime? }
+    circular_primes << num
+  end
+end
+
+circular_primes.count
+
 # project euler #47:
 # https://projecteuler.net/problem=47
 # the first two consecutive numbers to have two distinct
