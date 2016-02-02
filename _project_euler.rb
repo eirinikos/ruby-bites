@@ -25,6 +25,7 @@ end
 
 circular_primes.count
 
+
 # project euler #47:
 # https://projecteuler.net/problem=47
 # the first two consecutive numbers to have two distinct
@@ -120,18 +121,17 @@ end
 # https://projecteuler.net/problem=3
 # the prime factors of 13195 are 5, 7, 13 and 29.
 # what is the largest prime factor of the number 600851475143?
+# also see https://stackoverflow.com/questions/3398159/all-factors-of-a-given-number/3398195#3398195
 
 require 'prime'
 
-factors = lambda do |num|
-  (1..num).map{ |n| [n, num/n] if ((num/n) * n == num) }.compact
-end
+600851475143.prime_division.last.first
 
-def max_prime_factor(num)
-# returns the largest prime factor of num
-# does not work for Bignums..... ;_;
-  (2..num).select{ |n| (num % n == 0) && (2...n).none?{ |i| n % i == 0} }.max
-end
+# def max_prime_factor(num)
+# # returns the largest prime factor of num
+# # does not work for Bignums..... ;_;
+#   (2..num).select{ |n| (num % n == 0) && (2...n).none?{ |i| n % i == 0} }.max
+# end
 
 
 # project euler #2: even fibonacci numbers
