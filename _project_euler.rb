@@ -1,3 +1,77 @@
+
+
+# project euler #47:
+# https://projecteuler.net/problem=47
+# the first two consecutive numbers to have two distinct
+# prime factors are: 
+# 14 = 2 × 7 and 15 = 3 × 5
+# the first three consecutive numbers to have three distinct
+# prime factors are: 
+# 644 = 2**2 × 7 × 23, 645 = 3 × 5 × 43, 646 = 2 × 17 × 19
+# find the first four consecutive integers to have four distinct
+# prime factors. What is the first of these numbers?
+
+require 'prime'
+
+(100000..999999).select{ |n| n.prime_division.count == 4 &&
+  n.succ.prime_division.count == 4 && n.succ.succ.prime_division.count == 4 &&
+  n.succ.succ.succ.prime_division.count == 4 }.first
+
+
+# https://projecteuler.net/problem=37
+# the number 3797 has an interesting property.
+# being prime itself, it is possible to continuously remove digits from
+# left to right, and remain prime at each stage: 3797, 797, 97, and 7.
+# similarly we can work from right to left: 3797, 379, 37, and 3.
+
+# find the sum of the only eleven primes that are both truncatable from
+# left to right and right to left.
+# NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
+
+require 'prime'
+
+truncatable_primes = []
+
+Prime.each(1000000) do |p|
+  string = p.to_s
+  char_array = string.chars
+  temp_array = [] << p
+
+  string.each_char do |c|
+    char_array.rotate!.pop
+    temp_array << char_array.join.to_i
+  end
+
+  temp_array.pop
+  char_array = string.chars
+
+  string.each_char do |c|
+    char_array.pop
+    temp_array << char_array.join.to_i
+  end
+
+  temp_array.pop
+
+  if temp_array.all?{|n| n.prime?} && string.length > 1
+    truncatable_primes << p
+  end
+
+  truncatable_primes.uniq!
+end
+
+truncatable_primes.reduce(&:+)
+
+
+# project euler #10:
+# https://projecteuler.net/problem=10
+# the sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
+# find the sum of all the primes below two million.
+
+require 'prime'
+primes = []
+Prime.each(2000000){ |n| primes << n }
+primes.reduce(&:+)
+
 # project euler #35:
 # https://projecteuler.net/problem=35
 # the number, 197, is called a circular prime because all rotations
@@ -24,35 +98,6 @@ Prime.each(1000000) do |num|
 end
 
 circular_primes.count
-
-
-# project euler #47:
-# https://projecteuler.net/problem=47
-# the first two consecutive numbers to have two distinct
-# prime factors are: 
-# 14 = 2 × 7 and 15 = 3 × 5
-# the first three consecutive numbers to have three distinct
-# prime factors are: 
-# 644 = 2**2 × 7 × 23, 645 = 3 × 5 × 43, 646 = 2 × 17 × 19
-# find the first four consecutive integers to have four distinct
-# prime factors. What is the first of these numbers?
-
-require 'prime'
-
-(100000..999999).select{ |n| n.prime_division.count == 4 &&
-  n.succ.prime_division.count == 4 && n.succ.succ.prime_division.count == 4 &&
-  n.succ.succ.succ.prime_division.count == 4 }.first
-
-
-# project euler #10:
-# https://projecteuler.net/problem=10
-# the sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
-# find the sum of all the primes below two million.
-
-require 'prime'
-primes = []
-Prime.each(2000000){ |n| primes << n }
-primes.reduce(&:+)
 
 
 # project euler #7:
