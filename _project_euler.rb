@@ -1,4 +1,17 @@
+# project euler #41:
+# https://projecteuler.net/problem=41
+# we shall say that an n-digit number is pandigital if it makes
+# use of all the digits 1 to n exactly once.
+# for example, 2143 is a 4-digit pandigital and is also prime.
+# what is the largest n-digit pandigital prime that exists?
 
+require 'prime'
+
+pandigital_primes = (1..7).to_a.permutation.to_a.map(&:join).select do |p|
+  p.to_i.prime?
+end
+
+pandigital_primes.last.to_i
 
 # project euler #47:
 # https://projecteuler.net/problem=47
