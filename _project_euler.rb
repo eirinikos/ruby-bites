@@ -1,3 +1,27 @@
+# project euler #49:
+# https://projecteuler.net/problem=49
+# the arithmetic sequence, 1487, 4817, 8147, in which each of the
+# terms increases by 3330, is unusual in two ways: (i) each of the
+# three terms are prime, and, (ii) each of the 4-digit numbers are
+# permutations of one another.
+# there are no arithmetic sequences made up of three 1-, 2-, or
+# 3-digit primes, exhibiting this property, but there is one other
+# 4-digit increasing sequence.
+# what 12-digit number do you form by concatenating the three terms in this sequence?
+
+require 'prime'
+
+# this range represents the upper & lower bounds of 4-digit primes
+array = (1009..9973).to_a.select do |p|
+  p.prime? && (p+3330).prime? && (p+6660).prime? &&
+  p.to_s.chars.permutation.to_a.sort ==
+  (p+3330).to_s.chars.permutation.to_a.sort &&
+  p.to_s.chars.permutation.to_a.sort ==
+  (p+6660).to_s.chars.permutation.to_a.sort
+end
+
+array.last.to_s + (array.last + 3330).to_s + (array.last + 6660).to_s 
+
 # project euler #41:
 # https://projecteuler.net/problem=41
 # we shall say that an n-digit number is pandigital if it makes
