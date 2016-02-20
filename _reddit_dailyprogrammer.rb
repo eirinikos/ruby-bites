@@ -4,20 +4,16 @@
 # write a program that can determine if the letters in a word are in alphabetical order.
 # bonus: see if you can check words spelled in reverse alphabetical order.
 
-final_output = []
-
 strings = string.split("\n")
 
 ascii_values = strings.map(&:chars).map{|chars| chars.map(&:ord)}
 
-ascii_values.each_with_index do |ascii, index|
-  if ascii == ascii.sort
-    final_output << (strings[index] + " IN ORDER")
-  elsif ascii == ascii.sort.reverse
-    final_output << (strings[index] + " REVERSE ORDER")
+ascii_values.map{|ascii_set|
+  if ascii_set == ascii_set.sort
+    ascii_set.map(&:chr).join + " IN ORDER"
+  elsif ascii_set == ascii_set.sort.reverse
+    ascii_set.map(&:chr).join + " REVERSE ORDER"
   else
-    final_output << (strings[index] + " NOT IN ORDER")
+    ascii_set.map(&:chr).join + " NOT IN ORDER"
   end
-end
-
-final_output
+}.join("\n")
