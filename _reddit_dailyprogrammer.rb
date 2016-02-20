@@ -6,14 +6,12 @@
 
 strings = string.split("\n")
 
-ascii_values = strings.map(&:chars).map{|chars| chars.map(&:ord)}
-
-ascii_values.map{|ascii_set|
-  if ascii_set == ascii_set.sort
-    ascii_set.map(&:chr).join + " IN ORDER"
-  elsif ascii_set == ascii_set.sort.reverse
-    ascii_set.map(&:chr).join + " REVERSE ORDER"
+strings.map(&:chars).map{|word|
+  if word == word.sort
+    word.join + " IN ORDER"
+  elsif word == word.sort.reverse
+    word.join + " REVERSE ORDER"
   else
-    ascii_set.map(&:chr).join + " NOT IN ORDER"
+    word.join + " NOT IN ORDER"
   end
 }.join("\n")
