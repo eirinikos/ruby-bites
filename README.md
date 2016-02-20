@@ -9,10 +9,13 @@ Play against another human or play against an arrogant computer adversary; play 
 ####_codewars.rb
 This contains most of my recent solutions for Codewars katas.
 (My user profile is [here](http://www.codewars.com/users/eirinikos).)
-Some of the solutions have been refactored (after examining other Codewars users' solutions); I've knowingly left some solutions as-is (i.e., written at a low-level).
+Some of the solutions have been refactored (after examining other Codewars users' solutions), while others have been left as-is (i.e., written at a low-level).
 
 ####_project_euler.rb
-This comprises my tiny collection of Project Euler solutions.
+This comprises my wee collection of Project Euler solutions.
+
+####_reddit_dailyprogrammer.rb
+This comprises a new collection of solutions for challenges hosted [here](https://www.reddit.com/r/dailyprogrammer).
 
 ####number_guess.rb
 Run `ruby number_guess.rb` to see what this one does (or, just read the comments).
