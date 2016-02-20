@@ -8,7 +8,7 @@ final_output = []
 
 strings = string.split("\n")
 
-ascii_values = strings.map{|word| word.chars}.map{|chars| chars.map{|char| char.ord}}
+ascii_values = strings.map(&:chars).map{|chars| chars.map(&:ord)}
 
 ascii_values.each_with_index do |ascii, index|
   if ascii == ascii.sort
