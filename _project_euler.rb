@@ -39,6 +39,14 @@ end
 
 pandigital_primes.last.to_i
 
+# project euler #48:
+# https://projecteuler.net/problem=48
+# the series 1**1 + 2**2 + 3**3 + ... + 10**10 = 10405071317.
+# find the last 10 digits of the series 1**1 + 2**2 + 3**3 + ... + 1000**1000.
+
+(1..1000).to_a.map{|n| n**n}.reduce(&:+).to_s[-10..-1].to_i
+
+
 # project euler #47:
 # https://projecteuler.net/problem=47
 # the first two consecutive numbers to have two distinct
@@ -142,7 +150,7 @@ circular_primes.count
 # # https://projecteuler.net/problem=13
 # find the first 10 digits of the sum of the given one-hundred 50-digit numbers.
 
-string.lines.map(&:chomp).map(&:to_i).reduce(&:+).to_s[0..9]
+string.lines.map(&:chomp).map(&:to_i).reduce(&:+).to_s[0..9].to_i
 
 
 # project euler #8:
