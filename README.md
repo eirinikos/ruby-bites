@@ -1,5 +1,7 @@
 ###Greetings!
-This repo houses several stand-alone programs that are written in Ruby - mostly to solve various small programming challenges. It's also a collection of fun things I hope to return to again and again for pair programming sessions around town.
+This repo houses several stand-alone programs that are written in Ruby - mostly to solve various small programming challenges. Since I'm a relatively new programmer, this helps me review and practice using methods available to specific classes - e.g., the [Date](http://ruby-doc.org/stdlib-2.0.0/libdoc/date/rdoc/Date.html) and [Prime](http://ruby-doc.org/stdlib-2.2.0/libdoc/prime/rdoc/Prime.html) classes, not to mention the all-important [Array](http://ruby-doc.org/core-2.2.0/Array.html) and [String](http://ruby-doc.org/core-2.2.1/String.html) classes.
+
+I've realized (belatedly) that some of my earlier solutions might not be very user-readable, or that they might benefit from some light commenting. I'm keeping this in mind as I forge ahead...
 
 ####tictactoe.rb
 Run `ruby tictactoe.rb` from your command line to enjoy a game of Tic-Tac-Toe.
