@@ -74,7 +74,8 @@ def output_readable_date_range(pair)
   elsif first_date[:year] == second_date[:year] ||
     [first_date[:mon], first_date[:mday]] == [second_date[:mon], second_date[:mday]]
     # omit the year from the 1st date if both dates are in the same year
-    # || the month and day are the same in both dates (to account for leap years)
+    # || the month and day are the same in both dates
+    # (to account for leap years, which might throw a wrench in the :yday comparison below)
     first_date[:mon] + " #{first_date[:mday]} " + "- #{second_date[:mon]} " + "#{second_date[:mday]}, " +
     "#{second_date[:year]}"
   elsif first_date[:year] == this_year &&
