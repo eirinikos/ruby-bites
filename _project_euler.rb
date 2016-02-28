@@ -24,20 +24,6 @@ end
 
 array.last.to_s + (array.last + 3330).to_s + (array.last + 6660).to_s 
 
-# project euler #41:
-# https://projecteuler.net/problem=41
-# we shall say that an n-digit number is pandigital if it makes
-# use of all the digits 1 to n exactly once.
-# for example, 2143 is a 4-digit pandigital and is also prime.
-# what is the largest n-digit pandigital prime that exists?
-
-require 'prime'
-
-pandigital_primes = (1..7).to_a.permutation.to_a.map(&:join).select do |p|
-  p.to_i.prime?
-end
-
-pandigital_primes.last.to_i
 
 # project euler #48:
 # https://projecteuler.net/problem=48
@@ -63,6 +49,22 @@ require 'prime'
 (100000..999999).select{ |n| n.prime_division.count == 4 &&
   n.succ.prime_division.count == 4 && n.succ.succ.prime_division.count == 4 &&
   n.succ.succ.succ.prime_division.count == 4 }.first
+
+
+# project euler #41:
+# https://projecteuler.net/problem=41
+# we shall say that an n-digit number is pandigital if it makes
+# use of all the digits 1 to n exactly once.
+# for example, 2143 is a 4-digit pandigital and is also prime.
+# what is the largest n-digit pandigital prime that exists?
+
+require 'prime'
+
+pandigital_primes = (1..7).to_a.permutation.to_a.map(&:join).select do |p|
+  p.to_i.prime?
+end
+
+pandigital_primes.last.to_i
 
 
 # https://projecteuler.net/problem=37
@@ -109,16 +111,6 @@ end
 truncatable_primes.reduce(&:+)
 
 
-# project euler #10:
-# https://projecteuler.net/problem=10
-# the sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
-# find the sum of all the primes below two million.
-
-require 'prime'
-primes = []
-Prime.each(2000000){ |n| primes << n }
-primes.reduce(&:+)
-
 # project euler #35:
 # https://projecteuler.net/problem=35
 # the number, 197, is called a circular prime because all rotations
@@ -146,11 +138,33 @@ end
 
 circular_primes.count
 
+
+# project euler #19:
+# https://projecteuler.net/problem=19
+# how many Sundays fell on the first of the month during
+# the twentieth century (1 Jan 1901 to 31 Dec 2000)?
+
+require 'prime'
+
+Date.new(1901,1,1).step(Date.new(2000,12,31)).select{|date| date.sunday? &&
+  date.strftime("%d") == "01"}.size
+
 # project euler #13:
 # # https://projecteuler.net/problem=13
 # find the first 10 digits of the sum of the given one-hundred 50-digit numbers.
 
 string.lines.map(&:chomp).map(&:to_i).reduce(&:+).to_s[0..9].to_i
+
+
+# project euler #10:
+# https://projecteuler.net/problem=10
+# the sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
+# find the sum of all the primes below two million.
+
+require 'prime'
+primes = []
+Prime.each(2000000){ |n| primes << n }
+primes.reduce(&:+)
 
 
 # project euler #8:
