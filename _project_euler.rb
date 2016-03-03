@@ -139,12 +139,18 @@ end
 circular_primes.count
 
 
+# project euler #20:
+# https://projecteuler.net/problem=20
+# n! means n × (n − 1) × ... × 3 × 2 × 1
+# find the sum of the digits in the number 100!
+
+(1..100).to_a.reduce(&:*).to_s.chars.map(&:to_i).reduce(&:+)
+
+
 # project euler #19:
 # https://projecteuler.net/problem=19
 # how many Sundays fell on the first of the month during
 # the twentieth century (1 Jan 1901 to 31 Dec 2000)?
-
-require 'prime'
 
 Date.new(1901,1,1).step(Date.new(2000,12,31)).select{|date| date.sunday? &&
   date.strftime("%d") == "01"}.size
