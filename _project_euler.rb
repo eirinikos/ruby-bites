@@ -140,6 +140,18 @@ end
 circular_primes.count
 
 
+# project euler #24: lexicographic permutations
+# https://projecteuler.net/problem=24
+# a permutation is an ordered arrangement of objects;
+# if all of the permutations are listed numerically or alphabetically,
+# we call it lexicographic order.
+# the lexicographic permutations of 0, 1 and 2 are:
+# 012   021   102   120   201   210
+# what is the millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9?
+
+(0..9).to_a.map(&:to_s).permutation.to_a[999999].join.to_i
+
+
 # project euler #20: factorial digit sum
 # https://projecteuler.net/problem=20
 # n! means n × (n − 1) × ... × 3 × 2 × 1
