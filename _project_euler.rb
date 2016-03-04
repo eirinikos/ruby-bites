@@ -1,6 +1,6 @@
 
 
-# project euler #49:
+# project euler #49: prime permutation
 # https://projecteuler.net/problem=49
 # the arithmetic sequence, 1487, 4817, 8147, in which each of the
 # terms increases by 3330, is unusual in two ways: (i) each of the
@@ -25,7 +25,7 @@ end
 array.last.to_s + (array.last + 3330).to_s + (array.last + 6660).to_s 
 
 
-# project euler #48:
+# project euler #48: self powers
 # https://projecteuler.net/problem=48
 # the series 1**1 + 2**2 + 3**3 + ... + 10**10 = 10405071317.
 # find the last 10 digits of the series 1**1 + 2**2 + 3**3 + ... + 1000**1000.
@@ -33,7 +33,7 @@ array.last.to_s + (array.last + 3330).to_s + (array.last + 6660).to_s
 (1..1000).to_a.map{|n| n**n}.reduce(&:+).to_s[-10..-1].to_i
 
 
-# project euler #47:
+# project euler #47: distinct primes factors
 # https://projecteuler.net/problem=47
 # the first two consecutive numbers to have two distinct
 # prime factors are: 
@@ -51,7 +51,7 @@ require 'prime'
   n.succ.succ.succ.prime_division.count == 4 }.first
 
 
-# project euler #41:
+# project euler #41: pandigital prime
 # https://projecteuler.net/problem=41
 # we shall say that an n-digit number is pandigital if it makes
 # use of all the digits 1 to n exactly once.
@@ -67,6 +67,7 @@ end
 pandigital_primes.last.to_i
 
 
+# project euler #37: truncatable primes
 # https://projecteuler.net/problem=37
 # the number 3797 has an interesting property.
 # being prime itself, it is possible to continuously remove digits from
@@ -111,7 +112,7 @@ end
 truncatable_primes.reduce(&:+)
 
 
-# project euler #35:
+# project euler #35: circular primes
 # https://projecteuler.net/problem=35
 # the number, 197, is called a circular prime because all rotations
 # of the digits: 197, 971, and 719, are themselves prime.
@@ -139,7 +140,7 @@ end
 circular_primes.count
 
 
-# project euler #20:
+# project euler #20: factorial digit sum
 # https://projecteuler.net/problem=20
 # n! means n × (n − 1) × ... × 3 × 2 × 1
 # find the sum of the digits in the number 100!
@@ -147,7 +148,7 @@ circular_primes.count
 (1..100).to_a.reduce(&:*).to_s.chars.map(&:to_i).reduce(&:+)
 
 
-# project euler #19:
+# project euler #19: counting sundays
 # https://projecteuler.net/problem=19
 # how many Sundays fell on the first of the month during
 # the twentieth century (1 Jan 1901 to 31 Dec 2000)?
@@ -155,14 +156,15 @@ circular_primes.count
 Date.new(1901,1,1).step(Date.new(2000,12,31)).select{|date| date.sunday? &&
   date.strftime("%d") == "01"}.size
 
-# project euler #13:
+
+# project euler #13: large sum
 # # https://projecteuler.net/problem=13
 # find the first 10 digits of the sum of the given one-hundred 50-digit numbers.
 
 string.lines.map(&:chomp).map(&:to_i).reduce(&:+).to_s[0..9].to_i
 
 
-# project euler #10:
+# project euler #10: summation of primes
 # https://projecteuler.net/problem=10
 # the sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
 # find the sum of all the primes below two million.
@@ -173,7 +175,7 @@ Prime.each(2000000){ |n| primes << n }
 primes.reduce(&:+)
 
 
-# project euler #8:
+# project euler #8: largest product in a series
 # # https://projecteuler.net/problem=8
 # the four adjacent digits in the 1000-digit number that have the
 # greatest product are 9 × 9 × 8 × 9 = 5832.
@@ -206,7 +208,7 @@ products = strings.flat_map{|s| s.each_cons(13).to_a}.map{|s| s.map(&:to_i)}.map
 products.max
 
 
-# project euler #7:
+# project euler #7: 1001st prime
 # https://projecteuler.net/problem=7
 # by listing the first six prime numbers (2, 3, 5, 7, 11, 13)
 # we can see that the 6th prime is 13.
@@ -216,7 +218,7 @@ require 'prime'
 Prime.first(10001).last
 
 
-# project euler #6:
+# project euler #6: sum square difference
 # https://projecteuler.net/problem=6
 # the sum of the squares of the first ten natural numbers is:
 # 1**2 + 2**2 + ... + 10**2 = 385
@@ -230,7 +232,7 @@ Prime.first(10001).last
 (1..100).reduce(&:+)**2 - (1..100).map{ |n| n**2 }.reduce(&:+)
 
 
-# project euler #5:
+# project euler #5: smallest multiple
 # https://projecteuler.net/problem=5
 # 2520 is the smallest number that can be divided by
 # each of the numbers from 1 to 10 without any remainder.
@@ -247,7 +249,7 @@ end
 array.first
 
 
-# project euler #4:
+# project euler #4: largest palindrome product
 # https://projecteuler.net/problem=4
 # a palindromic number reads the same both ways.
 # the largest palindrome made from the product of two 2-digit numbers is 9009 = 99. * 91
@@ -268,7 +270,7 @@ def palindrome_products
 end
 
 
-# project euler #3:
+# project euler #3: largest prime factor
 # https://projecteuler.net/problem=3
 # the prime factors of 13195 are 5, 7, 13 and 29.
 # what is the largest prime factor of the number 600851475143?
@@ -321,7 +323,8 @@ def solution(n)
   even_fib_sum(fib_sequence(n))
 end
 
-# project euler #1: sum all multiples of 3 or 5 below 1000
+# project euler #1: multiples of 3 and 5
+# sum all multiples of 3 or 5 below 1000
 # https://projecteuler.net/problem=1
 def fizzbuzzsum(n)
  (3...n).select{ |i| i % 3 == 0 || i % 5 == 0 }.reduce(&:+)
