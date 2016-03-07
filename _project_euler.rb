@@ -140,6 +140,25 @@ end
 circular_primes.count
 
 
+# project euler #25: 1000-digit fibonacci number
+# https://projecteuler.net/problem=25
+# what is the index of the first term in
+# the Fibonacci sequence to contain 1000 digits?
+
+def fibonacci(n)
+  return [0] if n==1
+  return [0,1] if n==2
+  
+  previous = fibonacci(n-1)
+  previous << previous[-2] + previous.last
+  previous
+end
+
+first_term = fibonacci(4800).select{|n| n.to_s.length==1000}.first
+
+fibonacci(4800).index(first_term)
+
+
 # project euler #24: lexicographic permutations
 # https://projecteuler.net/problem=24
 # a permutation is an ordered arrangement of objects;
