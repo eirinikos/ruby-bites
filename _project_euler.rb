@@ -140,6 +140,20 @@ end
 circular_primes.count
 
 
+# project euler #30: digit fifth powers
+# https://projecteuler.net/problem=30
+# surprisingly there are only three numbers that can be written as
+# the sum of fourth powers of their digits:
+# 1634 = 1**4 + 6**4 + 3**4 + 4**4
+# 8208 = 8**4 + 2**4 + 0**4 + 8**4
+# 9474 = 9**4 + 4**4 + 7**4 + 4**4
+# the sum of these numbers is 1634 + 8208 + 9474 = 19316.
+# find the sum of all the numbers that can be written as the sum of
+# fifth powers of their digits.
+
+(4150..1000000).to_a.select{|n| n == n.to_s.chars.map(&:to_i).map{|n|n**5}.reduce(&:+)}.reduce(&:+)
+
+
 # project euler #25: 1000-digit fibonacci number
 # https://projecteuler.net/problem=25
 # what is the index of the first term in
