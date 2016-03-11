@@ -1,3 +1,11 @@
+# codewars kata: colour association
+# http://www.codewars.com/kata/56d6b7e43e8186c228000637/train/ruby
+
+def colour_association(array)
+  array.map{|pair| Hash[pair.first, pair.last]}
+end
+
+
 # codewars kata: rotate an array matrix
 # http://www.codewars.com/kata/525a566985a9a47bc8000670/train/ruby
 
