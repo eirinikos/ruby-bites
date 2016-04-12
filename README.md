@@ -8,6 +8,8 @@ Run `ruby tictactoe.rb` from your command line to enjoy a game of Tic-Tac-Toe.
 
 Play against another human or play against an arrogant computer adversary; play on a conventional 3x3 board or play on a 4x4 board.
 
+I'm in the process of reading Sandi Metz's [*POODR*](http://www.poodr.com/) while I refactor the code for this game. Follow-along by checking out my [ttt-poodr-refactor branch](https://github.com/eirinikos/ruby-bites/tree/ttt-poodr-refactor).
+
 ####_codewars.rb
 This contains most of my recent solutions for Codewars katas.
 (My user profile is [here](http://www.codewars.com/users/eirinikos).)
