@@ -2,10 +2,10 @@ class Player
   attr_accessor :type, :token, :turn
   # a player's type, token, and turn are publicly accessible outside of this class
 
-  def initialize(type, token)
+  def initialize(type, token, turn=false)
     @type = type # human, computer, human_1, or human_2
     @token = token
-    @turn = false
+    @turn = turn
   end
 
   def says_yes?
@@ -32,20 +32,32 @@ class Player
 end
 
 class Board
-  attr_accessor :ascii_representation, :dimension
-  # a board's ascii_representation & dimension are publicly accessible
+  attr_accessor :dimension
+  # a board's dimension attribute is publicly accessible
 
   def initialize(dimension)
-    @ascii_representation = asciify(dimension)
+    @dimension = dimension
   end
 
-  def display(ascii_representation)
+  def display
+    "\n"
+    asciify.each do |row|
+      puts "#{row}"
+      if row != asciify.last
+        puts "-" * (dimension**2 + (dimension-1))
+      end
+    end
   end
 
-  AsciiBoard = Struct.new(:array)
+  def asciify
+    arrayify.each_slice(dimension).to_a.flat_map do |slice|
+      slice.map {|cell|
+        cell != slice.last ? "#{cell}".center(dimension) + "|" : "#{cell}".center(dimension)}.join
+    end
+  end
 
-  def asciify(dimension)
-    AsciiBoard.new((1..dimension**2).to_a.map(&:to_s))
+  def arrayify
+    (1..dimension**2).to_a.map(&:to_s)
   end
 end
 
@@ -76,3 +88,6 @@ class Game
     exit(0)
   end
 end
+
+### test for boards of various dimensions
+(1..8).map{|i| Board.new(i).display}
