@@ -40,23 +40,24 @@ class Board
   end
 
   def display
-    "\n"
-    asciify.each do |row|
-      puts "#{row}"
-      if row != asciify.last
-        puts "-" * (dimension**2 + (dimension-1))
-      end
+    puts ascii_rows.join( "\n" + "-" * (dimension**2 + (dimension-1)) + "\n" )
+  end
+
+  def ascii_rows
+    rows.map{ |row| prettify(row).join }
+  end
+
+  def prettify(row)
+    row.map do |cell|
+      cell == row.last ? "#{cell}".center(dimension) : "#{cell}".center(dimension) + "|"
     end
   end
 
-  def asciify
-    arrayify.each_slice(dimension).to_a.flat_map do |slice|
-      slice.map {|cell|
-        cell != slice.last ? "#{cell}".center(dimension) + "|" : "#{cell}".center(dimension)}.join
-    end
+  def rows
+    array.each_slice(dimension).to_a
   end
 
-  def arrayify
+  def array
     (1..dimension**2).to_a.map(&:to_s)
   end
 end
@@ -90,4 +91,4 @@ class Game
 end
 
 ### test for boards of various dimensions
-(1..8).map{|i| Board.new(i).display}
+(1..8).map { |i| Board.new(i).display }
