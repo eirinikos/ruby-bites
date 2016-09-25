@@ -1,3 +1,44 @@
+
+# codewars kata: histogram - h1
+# http://www.codewars.com/kata/histogram-h1/train/ruby
+
+def histogram(results)
+  array = []
+  results.each_with_index do |rolls, index|
+    if rolls > 0
+      array.unshift("#{index + 1}|#{"#" * rolls} #{rolls}\n")
+    else
+      array.unshift("#{index + 1}|#{"#" * rolls}\n")
+    end
+  end
+
+  array.join
+end
+
+
+# codewars kata: number climber
+# http://www.codewars.com/kata/number-climber/train/ruby
+
+def climb(n)
+  array = []
+
+  until n < 1
+    array.push(n)
+    n = n / 2
+  end
+
+  array.reverse
+end
+
+
+# codewars kata: powers of 2
+# http://www.codewars.com/kata/powers-of-2/train/ruby
+
+def powers_of_two(n)
+  (0..n).map{ |number| 2**number }
+end
+
+
 # codewars kata: colour association
 # http://www.codewars.com/kata/56d6b7e43e8186c228000637/train/ruby
 
@@ -33,7 +74,7 @@ end
 # codewars kata: matrix addition
 # http://www.codewars.com/kata/526233aefd4764272800036f/train/ruby
 
-def matrixAddition(a, b) 
+def matrixAddition(a, b)
   c = [] << a << b
   c.transpose.map{ |i| i.transpose }.map{ |s|
     s.map{ |p| p.reduce(&:+)}}
@@ -184,10 +225,10 @@ def josephus(items,k)
   new_array = []
   while items.size > (k-1)
     new_array << items.delete_at(k-1)
-    items.rotate!(k-1) 
+    items.rotate!(k-1)
   end
   while items.size > 0
-    items.rotate!(k-1) 
+    items.rotate!(k-1)
     new_array << items.delete_at(0)
   end
   new_array
@@ -331,7 +372,7 @@ def pitch_class(note)
   'B#', 'C#', 'D', 'D#', 'E', 'E#', 'F#', 'G', 'G#', 'A', 'A#', 'B']
   array_with_flats = [
   'C','Db', 'D', 'Eb', 'Fb', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'Cb']
-  
+
     array_with_sharps.index(note) ||
     array_with_flats.index(note)
 end
