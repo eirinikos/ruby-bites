@@ -1,3 +1,26 @@
+# codewars kata: averages of numbers
+# http://www.codewars.com/kata/averages-of-numbers/train/ruby
+
+def averages(array)
+  return [] if !array.is_a? Array
+  averages_array = []
+  array.each_index do |index|
+    unless array[index + 1].nil?
+      sum = (array[index] + array[index + 1])
+      sum % 2 == 0 ? averages_array << sum / 2 : averages_array << sum / 2.0
+    end
+  end
+  averages_array
+end
+
+
+# codewars kata: shortest word
+# http://www.codewars.com/kata/shortest-word/train/ruby
+
+def find_short(string)
+  string.split.map(&:length).sort.first
+end
+
 
 # codewars kata: histogram - h1
 # http://www.codewars.com/kata/histogram-h1/train/ruby
