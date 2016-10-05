@@ -1,3 +1,23 @@
+# codewars kata: next version
+# http://www.codewars.com/kata/next-version/train/ruby
+
+def nextVersion(version)
+  return version.to_i.next.to_s if !version.include? '.'
+
+  top, bottom = version.split('.', 2)
+  bottom = bottom.split('.').join
+
+  new_bottom = bottom.to_i.next.to_s
+
+  if new_bottom.length > bottom.length
+    top = top.to_i.next
+    new_bottom = new_bottom.chars.drop(1).join
+  end
+
+  [top, new_bottom.chars.join('.')].join '.'
+end
+
+
 # codewars kata: averages of numbers
 # http://www.codewars.com/kata/averages-of-numbers/train/ruby
 
