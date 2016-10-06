@@ -1,3 +1,34 @@
+# codewars kata: operations with sets
+# http://www.codewars.com/kata/operations-with-sets/train/ruby
+
+def process_2arrays(array_1, array_2)
+  shared = array_1 & array_2
+  shared_count = shared.count
+
+  array_1_unshared = array_1 - shared
+  array_2_unshared = array_2 - shared
+
+  count_1 = array_1_unshared.count
+  count_2 = array_2_unshared.count
+  unshared = array_1_unshared + array_2_unshared
+  unshared_count = unshared.count
+
+  [].push(shared_count, unshared_count, count_1, count_2)
+end
+
+# refactored...
+def process_2arrays(array_1, array_2)
+  shared = (array_1 & array_2).count
+
+  array_1_unshared = array_1.count - shared
+  array_2_unshared = array_2.count - shared
+
+  unshared = array_1_unshared + array_2_unshared
+
+  [shared, unshared, array_1_unshared, array_2_unshared]
+end
+
+
 # codewars kata: next version
 # http://www.codewars.com/kata/next-version/train/ruby
 
