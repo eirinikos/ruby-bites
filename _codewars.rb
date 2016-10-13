@@ -1,3 +1,26 @@
+# codewars kata: which are in?
+# http://www.codewars.com/kata/which-are-in/train/ruby
+
+def in_array(array1, array2)
+  string = array2.join(' ')
+  array1.select { |substring| string.include? substring }.sort!
+end
+
+
+# codewars kata: deodorant evaporator
+# http://www.codewars.com/kata/deodorant-evaporator/train/ruby
+
+def evaporator(content, evap_per_day, threshold)
+  days = 0
+  threshold_amount = threshold.fdiv(100) * content
+  until content < threshold_amount do
+    content -= evap_per_day.fdiv(100) * content
+    days += 1
+  end
+  days
+end
+
+
 # codewars kata: operations with sets
 # http://www.codewars.com/kata/operations-with-sets/train/ruby
 
